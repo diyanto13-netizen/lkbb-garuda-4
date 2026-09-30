@@ -653,7 +653,7 @@ export const LuckyWheel: React.FC<LuckyWheelProps> = ({
 
       {/* WINNER POPUP MODAL */}
       {showWinnerModal && winnerNumber !== null && currentSelectedTeam && (
-        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
+        <div className="no-print fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4">
           <div className="bg-slate-900 border-2 border-amber-500 rounded-3xl w-full max-w-lg p-8 sm:p-10 text-center shadow-2xl relative overflow-hidden animate-in zoom-in-95 duration-200">
             <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-red-600 via-amber-400 to-red-600"></div>
 
@@ -703,8 +703,8 @@ export const LuckyWheel: React.FC<LuckyWheelProps> = ({
 
       {/* BERITA ACARA PRINT MODAL */}
       {showBeritaAcara && (
-        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-700 rounded-3xl w-full max-w-4xl overflow-hidden shadow-2xl">
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto print:p-0 print:static print:bg-white print:backdrop-none print:overflow-visible">
+          <div className="bg-slate-900 border border-slate-700 rounded-3xl w-full max-w-4xl overflow-hidden shadow-2xl print:bg-white print:border-none print:shadow-none print:rounded-none print:max-w-none print:w-full print:p-0 print:m-0">
             {/* Modal Controls */}
             <div className="no-print bg-slate-950 px-6 py-3 border-b border-slate-800 flex items-center justify-between">
               <div className="flex items-center gap-2 text-xs font-mono font-bold text-amber-400">
@@ -731,7 +731,7 @@ export const LuckyWheel: React.FC<LuckyWheelProps> = ({
             </div>
 
             {/* Document Content (Printable A4) */}
-            <div className="print-area p-10 bg-white text-slate-900 print:p-0">
+            <div className="print-area p-10 bg-white text-slate-900 print:p-0 print:m-0 print:border-none print:shadow-none">
               {/* Kop Surat SMKS PGRI 1 Sukabumi */}
               <div className="border-b-2 border-slate-900 pb-4 text-center space-y-1">
                 <div className="text-xs uppercase font-bold tracking-widest text-red-700">
@@ -764,31 +764,31 @@ export const LuckyWheel: React.FC<LuckyWheelProps> = ({
               </div>
 
               {/* Table of Results */}
-              <table className="w-full text-left text-xs border border-slate-900 mb-6">
-                <thead className="bg-slate-100 font-bold border-b border-slate-900">
+              <table className="w-full text-left text-xs border border-slate-900 mb-6 print:border-black">
+                <thead className="bg-slate-100 font-bold border-b border-slate-900 print:bg-slate-50 print:border-black">
                   <tr>
-                    <th className="px-3 py-2 border-r border-slate-900 text-center w-16">No. Tampil</th>
-                    <th className="px-3 py-2 border-r border-slate-900 w-28">No. Peserta</th>
-                    <th className="px-3 py-2 border-r border-slate-900">Pangkalan Sekolah</th>
-                    <th className="px-3 py-2 border-r border-slate-900">Nama Peleton</th>
+                    <th className="px-3 py-2 border-r border-slate-900 print:border-black text-center w-16">No. Tampil</th>
+                    <th className="px-3 py-2 border-r border-slate-900 print:border-black w-28">No. Peserta</th>
+                    <th className="px-3 py-2 border-r border-slate-900 print:border-black">Pangkalan Sekolah</th>
+                    <th className="px-3 py-2 border-r border-slate-900 print:border-black">Nama Peleton</th>
                     <th className="px-3 py-2 text-center w-28">Tanda Tangan Saksi</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-400">
+                <tbody className="divide-y divide-slate-400 print:divide-slate-300">
                   {verifiedTeams
                     .sort((a, b) => (a.noTampil || 999) - (b.noTampil || 999))
                     .map((item, idx) => (
                       <tr key={item.id} className="h-9">
-                        <td className="px-3 py-1.5 border-r border-slate-900 text-center font-mono font-bold text-sm">
+                        <td className="px-3 py-1.5 border-r border-slate-900 print:border-black text-center font-mono font-bold text-sm">
                           {item.noTampil || '-'}
                         </td>
-                        <td className="px-3 py-1.5 border-r border-slate-900 font-mono">
+                        <td className="px-3 py-1.5 border-r border-slate-900 print:border-black font-mono">
                           {item.noPeserta || '-'}
                         </td>
-                        <td className="px-3 py-1.5 border-r border-slate-900 font-bold">
+                        <td className="px-3 py-1.5 border-r border-slate-900 print:border-black font-bold">
                           {item.namaSekolah}
                         </td>
-                        <td className="px-3 py-1.5 border-r border-slate-900 text-slate-700">
+                        <td className="px-3 py-1.5 border-r border-slate-900 print:border-black text-slate-700">
                           {item.namaPeleton}
                         </td>
                         <td className="px-3 py-1.5 text-center text-[10px] text-slate-400 font-mono">

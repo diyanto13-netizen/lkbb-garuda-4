@@ -243,8 +243,8 @@ export const TrackingAndETicket: React.FC<TrackingAndETicketProps> = ({
 
       {/* MODAL E-TICKET RESMI (PRINT READY) */}
       {selectedTicket && (
-        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-slate-900 border border-slate-700 rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl relative">
+        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto print:p-0 print:static print:bg-white print:backdrop-none print:overflow-visible">
+          <div className="bg-slate-900 border border-slate-700 rounded-3xl w-full max-w-2xl overflow-hidden shadow-2xl relative print:bg-white print:border-none print:shadow-none print:rounded-none print:max-w-none print:w-full print:p-0 print:m-0">
             {/* Top Modal Controls (No Print) */}
             <div className="no-print bg-slate-950 border-b border-slate-800 px-6 py-3 flex items-center justify-between">
               <div className="flex items-center gap-2 text-xs font-bold text-amber-400 font-mono">
@@ -271,7 +271,7 @@ export const TrackingAndETicket: React.FC<TrackingAndETicketProps> = ({
             </div>
 
             {/* E-Ticket Card Layout (This gets printed) */}
-            <div className="print-area p-8 bg-white text-slate-900 print:p-0 print:m-0 print:border-none">
+            <div className="print-area p-8 bg-white text-slate-900 print:p-0 print:m-0 print:border-none print:shadow-none print:bg-white">
               {/* Kop Surat LKBB */}
               <div className="border-b-2 border-slate-900 pb-4 flex items-center justify-between gap-4">
                 <div className="space-y-0.5">
@@ -286,7 +286,7 @@ export const TrackingAndETicket: React.FC<TrackingAndETicketProps> = ({
                   </p>
                 </div>
                 <div className="text-right shrink-0">
-                  <div className="w-14 h-14 rounded-xl bg-slate-950 text-amber-400 flex flex-col items-center justify-center font-black">
+                  <div className="w-14 h-14 rounded-xl bg-slate-950 text-amber-400 flex flex-col items-center justify-center font-black print:bg-white print:border-2 print:border-slate-900 print:text-slate-950">
                     <span className="text-lg leading-none">G4</span>
                     <span className="text-[8px] tracking-widest uppercase">PASKIBRA</span>
                   </div>
@@ -294,11 +294,11 @@ export const TrackingAndETicket: React.FC<TrackingAndETicketProps> = ({
               </div>
 
               {/* Title Ribbon */}
-              <div className="bg-slate-950 text-white my-4 py-2 px-4 rounded-lg flex items-center justify-between">
-                <span className="text-xs font-bold font-mono tracking-widest text-amber-400 uppercase">
+              <div className="bg-slate-950 text-white my-4 py-2 px-4 rounded-lg flex items-center justify-between print:bg-transparent print:border-y-2 print:border-slate-900 print:rounded-none print:px-1 print:py-1.5 print:my-3">
+                <span className="text-xs font-bold font-mono tracking-widest text-amber-400 uppercase print:text-slate-950 print:font-black">
                   BUKTI REGISTRASI & E-TICKET RESMI PESERTA
                 </span>
-                <span className="text-xs font-mono font-bold">{selectedTicket.jenjang}</span>
+                <span className="text-xs font-mono font-bold print:text-slate-950">{selectedTicket.jenjang}</span>
               </div>
 
               {/* Two Column Ticket Content */}
@@ -332,7 +332,7 @@ export const TrackingAndETicket: React.FC<TrackingAndETicketProps> = ({
                     </div>
                     <div>
                       <span className="text-slate-500 font-mono text-[10px] uppercase">No. Urut Tampil (TM)</span>
-                      <div className="text-xl font-black font-mono text-amber-600">
+                      <div className="text-xl font-black font-mono text-amber-600 print:text-slate-950">
                         {selectedTicket.noTampil ? `NOMOR ${selectedTicket.noTampil}` : 'BELUM DIUNDI'}
                       </div>
                     </div>
@@ -353,16 +353,16 @@ export const TrackingAndETicket: React.FC<TrackingAndETicketProps> = ({
                 </div>
 
                 {/* Right QR Box */}
-                <div className="flex flex-col items-center justify-center p-3 bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl text-center">
+                <div className="flex flex-col items-center justify-center p-3 bg-slate-50 border-2 border-dashed border-slate-300 rounded-xl text-center print:bg-white print:border-slate-400">
                   {qrCodeDataUrl ? (
                     <img src={qrCodeDataUrl} alt="QR Code E-Ticket" className="w-36 h-36 mx-auto rounded" />
                   ) : (
                     <QrCode className="w-32 h-32 text-slate-400" />
                   )}
-                  <span className="text-[9px] font-mono text-slate-500 mt-2 block">
+                  <span className="text-[9px] font-mono text-slate-500 mt-2 block print:text-slate-700">
                     OTENTIKASI DIGITAL
                   </span>
-                  <span className="text-[10px] font-bold text-emerald-700 mt-0.5">
+                  <span className="text-[10px] font-bold text-emerald-700 mt-0.5 print:text-black">
                     {selectedTicket.status.toUpperCase()}
                   </span>
                 </div>
