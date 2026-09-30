@@ -204,17 +204,17 @@ export const IdCardModule: React.FC<IdCardModuleProps> = ({ registrations }) => 
                   style={{ minHeight: '410px' }}
                 >
                   {/* Top Header Card Lanyard Clip Notch */}
-                  <div className="bg-slate-950 text-white p-3 text-center relative border-b-2 border-amber-500">
+                  <div className="bg-white text-slate-950 p-2.5 text-center relative border-b-2 border-slate-900">
                     {/* Hole punch indicator */}
-                    <div className="w-8 h-2 bg-slate-800 rounded-full mx-auto mb-2 border border-slate-700"></div>
+                    <div className="w-8 h-2 bg-slate-200 rounded-full mx-auto mb-1.5 border border-slate-400"></div>
 
-                    <div className="text-[8px] font-mono tracking-widest text-amber-400 uppercase font-black">
+                    <div className="text-[9px] font-mono tracking-widest text-black uppercase font-black">
                       SMKS PGRI 1 KOTA SUKABUMI
                     </div>
-                    <div className="text-xs font-black tracking-tight text-white uppercase mt-0.5">
+                    <div className="text-xs font-black tracking-tight text-black uppercase mt-0.5">
                       LKBB GARUDA IV · 2026
                     </div>
-                    <div className="text-[7px] text-slate-400 tracking-wider">
+                    <div className="text-[8px] font-bold text-black tracking-wider mt-0.5">
                       TINGKAT SE-JAWA BARAT
                     </div>
                   </div>
@@ -222,14 +222,14 @@ export const IdCardModule: React.FC<IdCardModuleProps> = ({ registrations }) => 
                   {/* High Visibility Performance Number Header (Diperbesar Khusus Agar Jelas Terlihat oleh Juri) */}
                   <div className="bg-amber-400 text-slate-950 py-2 px-3.5 flex items-center justify-between border-b-2 border-slate-900 shadow-sm">
                     <div className="flex flex-col text-left">
-                      <span className="text-[10px] font-mono font-black tracking-wider uppercase leading-none text-slate-950">
+                      <span className="text-[10px] font-mono font-black tracking-wider uppercase leading-none text-black">
                         NO. TAMPIL:
                       </span>
-                      <span className="text-[7.5px] font-mono font-bold tracking-tight text-slate-800 uppercase mt-0.5">
+                      <span className="text-[7.5px] font-mono font-black tracking-tight text-black uppercase mt-1">
                         PENILAIAN JURI
                       </span>
                     </div>
-                    <div className="flex items-center justify-center bg-slate-950 text-amber-300 font-mono font-black text-3xl sm:text-4xl px-3.5 py-1 rounded-lg border-2 border-slate-900 shadow-inner min-w-[62px] text-center leading-none">
+                    <div className="flex items-center justify-center bg-white text-black font-mono font-black text-5xl sm:text-6xl px-4 py-1.5 rounded-xl border-2 border-slate-900 min-w-[76px] text-center leading-none shadow-sm">
                       {currentTeam?.noTampil ? currentTeam.noTampil : '-'}
                     </div>
                   </div>
@@ -270,22 +270,22 @@ export const IdCardModule: React.FC<IdCardModuleProps> = ({ registrations }) => 
                   </div>
 
                   {/* Bottom Footer Bar with Barcode */}
-                  <div className="bg-slate-950 text-white p-2.5 text-center flex items-center justify-between text-[8px] font-mono border-t border-slate-800">
+                  <div className="bg-white text-black p-2.5 text-center flex items-center justify-between text-[8px] font-mono border-t-2 border-slate-900">
                     <div className="text-left">
-                      <div className="text-[7px] text-slate-400 uppercase">AKREDITASI</div>
-                      <div className="text-amber-400 font-bold">{currentTeam?.jenjang}</div>
+                      <div className="text-[7px] text-slate-700 uppercase font-bold">AKREDITASI</div>
+                      <div className="text-black font-black">{currentTeam?.jenjang}</div>
                     </div>
 
                     {/* Faux Barcode lines */}
-                    <div className="flex items-center gap-0.5 h-5 bg-white p-1 rounded">
+                    <div className="flex items-center gap-0.5 h-5 bg-white p-1 rounded border border-slate-300">
                       {[3, 1, 2, 4, 1, 3, 2, 1, 4, 2, 1, 3, 2].map((w, i) => (
                         <div key={i} className="bg-black h-full" style={{ width: `${w}px` }}></div>
                       ))}
                     </div>
 
                     <div className="text-right">
-                      <div className="text-[7px] text-slate-400">ID REG</div>
-                      <div className="text-slate-200">{currentTeam?.noRegistrasi ? currentTeam.noRegistrasi.slice(-4) : '-'}</div>
+                      <div className="text-[7px] text-slate-700 uppercase font-bold">ID REG</div>
+                      <div className="text-black font-bold font-mono">{currentTeam?.noRegistrasi ? currentTeam.noRegistrasi.slice(-4) : '-'}</div>
                     </div>
                   </div>
 

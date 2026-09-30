@@ -66,9 +66,7 @@
   .fixed.inset-0,
   [class*="fixed inset-0"],
   [class*="backdrop-blur"],
-  [class*="bg-black/"],
-  [class*="bg-slate-900"],
-  [class*="bg-slate-950"] {
+  [class*="bg-black/"] {
     position: static !important;
     background: transparent !important;
     background-color: transparent !important;
