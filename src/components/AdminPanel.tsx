@@ -43,6 +43,7 @@ import {
   Jenjang,
   KuotaJenjang
 } from '../types';
+import { hashPin, isSha256Hash } from '../utils/security';
 import { processLogoFile } from '../utils/imageUtils';
 import { SponsorLogo } from './SponsorLogo';
 import { getVerificationWhatsAppUrl } from '../utils/whatsapp';
@@ -280,7 +281,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
     setUploadedLogoFileName('');
   };
 
-  const handleSaveNewPin = (e: React.FormEvent) => {
+  const handleSaveNewPin = async (e: React.FormEvent) => {
     e.preventDefault();
     setPinChangeError('');
     setPinChangeSuccess('');
@@ -294,13 +295,18 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
       return;
     }
 
-    onUpdatePin(newPin.trim());
-    setPinChangeSuccess('PIN panitia berhasil diperbarui dan tersimpan permanen di database!');
-    setNewPin('');
-    setConfirmPin('');
-    setTimeout(() => {
-      setPinChangeSuccess('');
-    }, 4500);
+    try {
+      const hashedPin = await hashPin(newPin.trim());
+      onUpdatePin(hashedPin);
+      setPinChangeSuccess('PIN panitia berhasil dienkripsi (SHA-256) dan tersimpan permanen di database!');
+      setNewPin('');
+      setConfirmPin('');
+      setTimeout(() => {
+        setPinChangeSuccess('');
+      }, 4500);
+    } catch {
+      setPinChangeError('Gagal mengenkripsi PIN baru. Silakan coba kembali.');
+    }
   };
 
   return (
@@ -641,22 +647,35 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 </div>
               </div>
 
-              {/* Current PIN Pill */}
+              {/* Current PIN Status Pill */}
               <div className="bg-slate-950 px-4 py-2.5 rounded-xl border border-slate-800 flex items-center gap-3 shrink-0">
                 <div className="text-left">
-                  <div className="text-[10px] font-mono text-slate-400 uppercase">PIN Aktif di Database:</div>
-                  <div className="font-mono font-black text-base text-amber-400 tracking-widest">
-                    {showCurrentPin ? currentPin : '••••••••'}
+                  <div className="text-[10px] font-mono text-slate-400 uppercase flex items-center gap-1">
+                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Status Proteksi PIN:</span>
+                  </div>
+                  <div className="font-mono font-bold text-xs mt-0.5">
+                    {isSha256Hash(currentPin) ? (
+                      <span className="text-emerald-400 flex items-center gap-1 font-bold">
+                        <span>Terenkripsi SHA-256 (Kriptografis 1-Arah)</span>
+                      </span>
+                    ) : (
+                      <span className="text-amber-400 font-bold">
+                        PIN Standar ({showCurrentPin ? currentPin : '••••'})
+                      </span>
+                    )}
                   </div>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setShowCurrentPin(!showCurrentPin)}
-                  className="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
-                  title={showCurrentPin ? 'Sembunyikan PIN' : 'Tampilkan PIN'}
-                >
-                  {showCurrentPin ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
-                </button>
+                {!isSha256Hash(currentPin) && (
+                  <button
+                    type="button"
+                    onClick={() => setShowCurrentPin(!showCurrentPin)}
+                    className="p-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+                    title={showCurrentPin ? 'Sembunyikan PIN' : 'Tampilkan PIN'}
+                  >
+                    {showCurrentPin ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
+                )}
               </div>
             </div>
 

@@ -38,6 +38,7 @@ import {
   initializeDefaultSettingsIfEmpty
 } from './services/firestoreService';
 import { testFirestoreConnection } from './firebase';
+import { hashPin, isSha256Hash } from './utils/security';
 
 const PROTECTED_TABS = ['wheel', 'idcards', 'gas-code', 'admin'];
 
@@ -279,10 +280,16 @@ export default function App() {
     }
   };
 
-  const handleUpdatePin = (newPin: string) => {
-    setAdminPin(newPin);
-    localStorage.setItem('lkbb4_admin_pin', newPin);
-    showToast('PIN Panitia berhasil diperbarui & disimpan di database!', 'success');
+  const handleUpdatePin = async (newPinOrHash: string) => {
+    try {
+      const securedPin = isSha256Hash(newPinOrHash) ? newPinOrHash : await hashPin(newPinOrHash);
+      setAdminPin(securedPin);
+      localStorage.setItem('lkbb4_admin_pin', securedPin);
+      await saveSettingsToFirestore({ adminPin: securedPin });
+      showToast('PIN Panitia terenkripsi SHA-256 & tersimpan di database!', 'success');
+    } catch {
+      showToast('PIN Panitia diperbarui di perangkat lokal.', 'info');
+    }
   };
 
   // Auth Handlers
