@@ -1,0 +1,6 @@
+{
+  "name": "LKBB GARUDA IV - SMKS PGRI 1 Kota Sukabumi",
+  "description": "Sistem Registrasi & Manajemen LKBB GARUDA IV Tingkat SD/MI, SMP/MTs, dan SMA/SMK/MA Se-Jawa Barat - SMKS PGRI 1 Kota Sukabumi",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
