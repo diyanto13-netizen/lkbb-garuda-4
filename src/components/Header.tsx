@@ -18,6 +18,7 @@ interface HeaderProps {
   adminSession: AdminSession;
   onOpenPinModal: () => void;
   onLogoutAdmin: () => void;
+  isCloudConnected?: boolean;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -25,7 +26,8 @@ export const Header: React.FC<HeaderProps> = ({
   onSelectTab,
   adminSession,
   onOpenPinModal,
-  onLogoutAdmin
+  onLogoutAdmin,
+  isCloudConnected = true
 }) => {
   return (
     <header className="no-print bg-slate-950/95 border-b border-slate-800/80 sticky top-0 z-40 backdrop-blur-md shadow-2xl">
@@ -37,6 +39,16 @@ export const Header: React.FC<HeaderProps> = ({
             <span className="font-semibold">PENYELENGGARA:</span> SMKS PGRI 1 KOTA SUKABUMI · PASKIBRA GARUDA IV
           </div>
           <div className="hidden sm:flex items-center gap-3 text-[11px] text-slate-400">
+            <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-[10px] font-medium border ${
+              isCloudConnected 
+                ? 'bg-emerald-950/70 border-emerald-500/40 text-emerald-300' 
+                : 'bg-amber-950/70 border-amber-500/40 text-amber-300'
+            }`}>
+              <span className={`w-1.5 h-1.5 rounded-full ${
+                isCloudConnected ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'
+              }`}></span>
+              {isCloudConnected ? 'Cloud Firestore Online' : 'Penyimpanan Lokal'}
+            </span>
             <span>Tingkat SD/MI · SMP/MTs · SMA/SMK/MA</span>
             <span className="text-amber-500/60 font-bold">SE-JAWA BARAT</span>
           </div>

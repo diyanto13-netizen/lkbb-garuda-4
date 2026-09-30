@@ -1,0 +1,19 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Registrations collection
+    match /registrations/{registrationId} {
+      allow read: if true;
+      allow create: if request.resource.data.namaSekolah is string
+                    && request.resource.data.jenjang in ['SD/MI', 'SMP/MTs', 'SMA/SMK/MA']
+                    && request.resource.data.statusPembayaran is string;
+      allow update, delete: if true;
+    }
+
+    // System settings & quotas
+    match /settings/{settingId} {
+      allow read: if true;
+      allow write: if true;
+    }
+  }
+}

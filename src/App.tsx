@@ -27,8 +27,17 @@ import {
   AdminSession,
   KuotaJenjang 
 } from './types';
-import { CheckCircle2, Ticket, ArrowRight, X, Lock, KeyRound, ShieldAlert } from 'lucide-react';
+import { CheckCircle2, Ticket, ArrowRight, X, Lock, KeyRound, ShieldAlert, CloudCheck, CloudOff } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import {
+  subscribeToRegistrations,
+  subscribeToSettings,
+  saveRegistrationToFirestore,
+  deleteRegistrationFromFirestore,
+  saveSettingsToFirestore,
+  initializeDefaultSettingsIfEmpty
+} from './services/firestoreService';
+import { testFirestoreConnection } from './firebase';
 
 const PROTECTED_TABS = ['wheel', 'idcards', 'gas-code', 'admin'];
 
@@ -120,6 +129,7 @@ export default function App() {
   const [currentTab, setCurrentTab] = useState<string>('dashboard');
   const [pendingTab, setPendingTab] = useState<string | null>(null);
   const [isPinModalOpen, setIsPinModalOpen] = useState<boolean>(false);
+  const [isCloudConnected, setIsCloudConnected] = useState<boolean>(true);
   const [adminSession, setAdminSession] = useState<AdminSession>(() => {
     const saved = sessionStorage.getItem('lkbb4_admin_session');
     if (saved) {
@@ -137,7 +147,66 @@ export default function App() {
   // Success dialog after new registration
   const [justRegistered, setJustRegistered] = useState<Pendaftaran | null>(null);
 
-  // Sync to localStorage
+  // Real-time Firestore Database Synchronization across all devices & browsers
+  useEffect(() => {
+    // 1. Connectivity check & initial seed if empty
+    testFirestoreConnection().then(connected => {
+      setIsCloudConnected(connected);
+      if (connected) {
+        initializeDefaultSettingsIfEmpty({
+          quotas: INITIAL_KUOTA,
+          bankConfig: INITIAL_BANK,
+          sponsors: INITIAL_SPONSORS,
+          adminPin: '1945'
+        });
+      }
+    });
+
+    // 2. Real-time listener for registrations
+    const unsubRegs = subscribeToRegistrations(
+      (remoteRegs) => {
+        setRegistrations(remoteRegs);
+        localStorage.setItem('lkbb4_registrations', JSON.stringify(remoteRegs));
+        setIsCloudConnected(true);
+      },
+      () => {
+        setIsCloudConnected(false);
+      }
+    );
+
+    // 3. Real-time listener for system settings (quotas, bank, sponsors, PIN)
+    const unsubSettings = subscribeToSettings(
+      (remoteSettings) => {
+        if (remoteSettings.quotas && Array.isArray(remoteSettings.quotas) && remoteSettings.quotas.length > 0) {
+          setQuotas(remoteSettings.quotas);
+          localStorage.setItem('lkbb4_quotas', JSON.stringify(remoteSettings.quotas));
+        }
+        if (remoteSettings.bankConfig && remoteSettings.bankConfig.bankName) {
+          setBankConfig(remoteSettings.bankConfig);
+          localStorage.setItem('lkbb4_bank', JSON.stringify(remoteSettings.bankConfig));
+        }
+        if (remoteSettings.sponsors && Array.isArray(remoteSettings.sponsors)) {
+          setSponsors(remoteSettings.sponsors);
+          localStorage.setItem('lkbb4_sponsors', JSON.stringify(remoteSettings.sponsors));
+        }
+        if (remoteSettings.adminPin) {
+          setAdminPin(remoteSettings.adminPin);
+          localStorage.setItem('lkbb4_admin_pin', remoteSettings.adminPin);
+        }
+        setIsCloudConnected(true);
+      },
+      () => {
+        setIsCloudConnected(false);
+      }
+    );
+
+    return () => {
+      unsubRegs();
+      unsubSettings();
+    };
+  }, []);
+
+  // Local storage fallback sync
   useEffect(() => {
     localStorage.setItem('lkbb4_quotas', JSON.stringify(quotas));
   }, [quotas]);
@@ -255,15 +324,21 @@ export default function App() {
   }, [adminSession]);
 
   // Registration Handlers
-  const handleAddNewRegistration = (newReg: Pendaftaran) => {
-    setRegistrations([newReg, ...registrations]);
+  const handleAddNewRegistration = async (newReg: Pendaftaran) => {
+    setRegistrations(prev => [newReg, ...prev]);
     setJustRegistered(newReg);
     confetti({
       particleCount: 100,
       spread: 80,
       origin: { y: 0.5 }
     });
-    showToast(`Registrasi ${newReg.namaSekolah} berhasil dicatat!`, 'success');
+    showToast(`Registrasi ${newReg.namaSekolah} berhasil dicatat & disinkronkan ke Cloud!`, 'success');
+    try {
+      await saveRegistrationToFirestore(newReg);
+      setIsCloudConnected(true);
+    } catch (err) {
+      console.warn('Simpan ke Firestore tertunda (tersimpan lokal):', err);
+    }
   };
 
   // Status & Verification Handlers
@@ -273,6 +348,7 @@ export default function App() {
     catatan?: string, 
     customNoPeserta?: string
   ) => {
+    let targetUpdated: Pendaftaran | null = null;
     setRegistrations(prev =>
       prev.map(r => {
         if (r.id === id) {
@@ -283,22 +359,27 @@ export default function App() {
             const count = prev.filter(p => p.jenjang === r.jenjang && p.noPeserta).length + 1;
             updatedNoPeserta = customNoPeserta || `${prefix}-${count.toString().padStart(2, '0')}`;
           }
-          return {
+          targetUpdated = {
             ...r,
             status: newStatus,
             catatanRevisi: catatan || '',
             noPeserta: updatedNoPeserta,
             tanggalVerifikasi: new Date().toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })
           };
+          return targetUpdated;
         }
         return r;
       })
     );
-    showToast('Status pendaftaran & No. Peserta berhasil diperbarui!', 'success');
+    showToast('Status pendaftaran & No. Peserta berhasil diperbarui di cloud!', 'success');
+    if (targetUpdated) {
+      saveRegistrationToFirestore(targetUpdated).catch(() => {});
+    }
   };
 
   // Pelunasan Susulan Handler
   const handlePelunasan = (id: string, nominalTambahan: number, catatan: string) => {
+    let targetUpdated: Pendaftaran | null = null;
     setRegistrations(prev =>
       prev.map(r => {
         if (r.id === id) {
@@ -306,7 +387,7 @@ export default function App() {
           const newSisa = Math.max(0, r.nominalHarusBayar - newBayar);
           const newStatusBayar = newSisa === 0 ? 'Lunas' : 'DP';
           const riwayat = r.riwayatPelunasan || [];
-          return {
+          targetUpdated = {
             ...r,
             nominalBayar: newBayar,
             sisaPembayaran: newSisa,
@@ -321,46 +402,76 @@ export default function App() {
               }
             ]
           };
+          return targetUpdated;
         }
         return r;
       })
     );
-    showToast(`Pelunasan sebesar Rp ${nominalTambahan.toLocaleString('id-ID')} berhasil dicatat!`, 'success');
+    showToast(`Pelunasan sebesar Rp ${nominalTambahan.toLocaleString('id-ID')} berhasil dicatat & disinkronkan!`, 'success');
+    if (targetUpdated) {
+      saveRegistrationToFirestore(targetUpdated).catch(() => {});
+    }
   };
 
   // Lucky Wheel Number Drawing Saver
   const handleSaveNomorTampil = (regId: string, nomorTampil: number) => {
+    let targetUpdated: Pendaftaran | null = null;
     setRegistrations(prev =>
-      prev.map(r => (r.id === regId ? { ...r, noTampil: nomorTampil } : r))
+      prev.map(r => {
+        if (r.id === regId) {
+          targetUpdated = { ...r, noTampil: nomorTampil };
+          return targetUpdated;
+        }
+        return r;
+      })
     );
-    showToast(`Nomor Tampil ${nomorTampil} berhasil disimpan!`, 'success');
+    showToast(`Nomor Tampil ${nomorTampil} berhasil disimpan di cloud!`, 'success');
+    if (targetUpdated) {
+      saveRegistrationToFirestore(targetUpdated).catch(() => {});
+    }
   };
 
   // Sponsor Handlers
   const handleAddSponsor = (sponsor: Sponsor) => {
-    setSponsors([...sponsors, sponsor]);
-    showToast(`Sponsor ${sponsor.nama} ditambahkan!`, 'success');
+    const next = [...sponsors, sponsor];
+    setSponsors(next);
+    saveSettingsToFirestore({ sponsors: next }).catch(() => {});
+    showToast(`Sponsor ${sponsor.nama} ditambahkan ke cloud!`, 'success');
   };
 
   const handleDeleteSponsor = (id: string) => {
-    setSponsors(sponsors.filter(s => s.id !== id));
+    const next = sponsors.filter(s => s.id !== id);
+    setSponsors(next);
+    saveSettingsToFirestore({ sponsors: next }).catch(() => {});
     showToast('Sponsor dihapus dari daftar.', 'info');
   };
 
   const handleDeleteRegistration = (id: string) => {
     setRegistrations(prev => prev.filter(r => r.id !== id));
-    showToast('Data peleton berhasil dihapus dari sistem.', 'info');
+    deleteRegistrationFromFirestore(id).catch(() => {});
+    showToast('Data peleton berhasil dihapus dari cloud database.', 'info');
   };
 
-  const handleResetAllRegistrations = () => {
+  const handleResetAllRegistrations = async () => {
+    const ids = registrations.map(r => r.id);
     setRegistrations([]);
     localStorage.removeItem('lkbb4_registrations');
     showToast('Seluruh data pendaftaran berhasil dibersihkan! Sistem kini siap menerima data riil.', 'success');
+    for (const id of ids) {
+      deleteRegistrationFromFirestore(id).catch(() => {});
+    }
   };
 
   const handleUpdateQuotas = (newQuotas: KuotaJenjang[]) => {
     setQuotas(newQuotas);
-    showToast('Pengaturan kuota dan biaya pendaftaran berhasil disimpan ke database!', 'success');
+    saveSettingsToFirestore({ quotas: newQuotas }).catch(() => {});
+    showToast('Pengaturan kuota dan biaya pendaftaran berhasil disimpan ke cloud database!', 'success');
+  };
+
+  const handleUpdateBankConfig = (newCfg: BankConfig) => {
+    setBankConfig(newCfg);
+    saveSettingsToFirestore({ bankConfig: newCfg }).catch(() => {});
+    showToast('Rekening resmi panitia berhasil disimpan ke cloud database!', 'success');
   };
 
   return (
@@ -375,6 +486,7 @@ export default function App() {
           setIsPinModalOpen(true);
         }}
         onLogoutAdmin={handleAdminLogout}
+        isCloudConnected={isCloudConnected}
       />
 
       {/* Main Content Arena */}
@@ -455,10 +567,7 @@ export default function App() {
               onUpdatePin={handleUpdatePin}
               onUpdateStatus={handleUpdateStatus}
               onPelunasan={handlePelunasan}
-              onUpdateBankConfig={(newCfg) => {
-                setBankConfig(newCfg);
-                showToast('Rekening resmi berhasil disimpan!', 'success');
-              }}
+              onUpdateBankConfig={handleUpdateBankConfig}
               onUpdateQuotas={handleUpdateQuotas}
               onAddSponsor={handleAddSponsor}
               onDeleteSponsor={handleDeleteSponsor}

@@ -1,0 +1,52 @@
+{
+  "entities": {
+    "Registration": {
+      "title": "Registration",
+      "description": "LKBB Garuda IV contingent registration and roster",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "noRegistrasi": { "type": "string" },
+        "namaSekolah": { "type": "string" },
+        "namaPeleton": { "type": "string" },
+        "jenjang": { "type": "string" },
+        "namaPelatih": { "type": "string" },
+        "kontakPelatih": { "type": "string" },
+        "namaPembina": { "type": "string" },
+        "kontakPembina": { "type": "string" },
+        "emailOfficial": { "type": "string" },
+        "anggota": { "type": "string" },
+        "statusPembayaran": { "type": "string" },
+        "nominalBayar": { "type": "number" },
+        "buktiBayarUrl": { "type": "string" },
+        "suratTugasUrl": { "type": "string" },
+        "nomorUndianTampil": { "type": "number" },
+        "waktuDaftar": { "type": "string" },
+        "catatanPanitia": { "type": "string" }
+      },
+      "required": ["id", "noRegistrasi", "namaSekolah", "jenjang", "statusPembayaran", "waktuDaftar"]
+    },
+    "AppConfig": {
+      "title": "AppConfig",
+      "description": "System settings including quotas, bank configuration, sponsors, and admin PIN",
+      "type": "object",
+      "properties": {
+        "quotas": { "type": "string" },
+        "bankConfig": { "type": "string" },
+        "sponsors": { "type": "string" },
+        "adminPin": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      }
+    }
+  },
+  "firestore": {
+    "/registrations/{registrationId}": {
+      "schema": "Registration",
+      "description": "Collection of all contingent registrations"
+    },
+    "/settings/{settingId}": {
+      "schema": "AppConfig",
+      "description": "Global application configuration documents"
+    }
+  }
+}
