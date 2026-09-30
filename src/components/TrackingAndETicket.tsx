@@ -148,26 +148,10 @@ export const TrackingAndETicket: React.FC<TrackingAndETicketProps> = ({
           />
         </div>
 
-        {/* Quick Suggestion Pills from Real Registered Teams */}
-        {registrations.length > 0 ? (
-          <div className="mt-3 flex items-center gap-2 text-xs text-slate-400 flex-wrap">
-            <span className="font-mono text-[11px]">Peleton Terdaftar:</span>
-            {registrations.slice(0, 3).map((r) => (
-              <button
-                key={r.id}
-                type="button"
-                onClick={() => setSearchQuery(r.noRegistrasi)}
-                className="text-amber-400/90 hover:text-amber-300 underline font-mono text-xs"
-              >
-                {r.noRegistrasi} ({r.namaSekolah})
-              </button>
-            ))}
-          </div>
-        ) : (
-          <div className="mt-3 text-[11px] text-slate-500 font-mono">
-            Tip: Masukkan No. Registrasi atau No. WhatsApp Anda yang terdaftar pada formulir pendaftaran.
-          </div>
-        )}
+        {/* Helpful Search Tip */}
+        <div className="mt-3 text-[11px] text-slate-500 font-mono flex items-center gap-1.5">
+          <span>Tip: Masukkan No. Registrasi, Nama Sekolah, atau No. WhatsApp yang terdaftar pada formulir pendaftaran.</span>
+        </div>
       </div>
 
       {/* Search Results */}
