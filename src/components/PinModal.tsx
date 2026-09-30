@@ -97,9 +97,9 @@ export const PinModal: React.FC<PinModalProps> = ({
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="text-[10px] font-mono font-bold tracking-widest text-emerald-400 uppercase bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20 flex items-center gap-1">
-                  <ShieldCheck className="w-3 h-3 text-emerald-400" />
-                  <span>SHA-256 Terproteksi</span>
+                <span className="text-[10px] font-mono font-bold tracking-widest text-amber-400 uppercase bg-amber-500/10 px-2.5 py-0.5 rounded-lg border border-amber-500/20 flex items-center gap-1.5">
+                  <ShieldCheck className="w-3 h-3 text-amber-400" />
+                  <span>Akses Khusus Panitia</span>
                 </span>
               </div>
               <h3 className="text-base sm:text-lg font-black text-white mt-1">
@@ -119,12 +119,12 @@ export const PinModal: React.FC<PinModalProps> = ({
           </button>
         </div>
 
-        <div className="mb-5 p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-[11px] text-slate-400 leading-relaxed">
+        <div className="mb-5 p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 text-[11px] text-slate-400 leading-relaxed">
           <div className="flex items-center gap-1.5 text-amber-400 font-bold mb-1">
             <ShieldCheck className="w-3.5 h-3.5" />
-            <span>Hak Akses Terbatas (Bukan untuk Peserta)</span>
+            <span>Akses Terbatas Panitia</span>
           </div>
-          Fitur ini diproteksi enkripsi satu arah SHA-256. Peserta umum tidak dapat mengintip PIN dari kode sumber browser maupun database.
+          Halaman ini khusus diperuntukkan bagi panitia resmi LKBB GARUDA IV. Silakan masukkan PIN otorisasi Anda.
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -181,7 +181,7 @@ export const PinModal: React.FC<PinModalProps> = ({
               className="px-5 py-2.5 rounded-xl text-xs font-bold bg-amber-500 hover:bg-amber-400 text-slate-950 disabled:opacity-50 transition-all flex items-center gap-1.5 shadow-lg shadow-amber-500/20 active:scale-95"
             >
               {loading ? (
-                <span>Memvalidasi SHA-256...</span>
+                <span>Memverifikasi PIN...</span>
               ) : (
                 <>
                   <CheckCircle2 className="w-4 h-4" />
