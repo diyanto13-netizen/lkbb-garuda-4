@@ -85,8 +85,8 @@ export const PinModal: React.FC<PinModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200">
-      <div className="bg-slate-900 border border-slate-800 rounded-3xl w-full max-w-md p-6 sm:p-7 shadow-2xl relative overflow-hidden">
+    <div className="fixed inset-0 z-50 bg-[#070c1a]/85 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-200">
+      <div className="bg-[#101b35] border border-[#1e2d4d] rounded-3xl w-full max-w-md p-6 sm:p-7 shadow-2xl relative overflow-hidden">
         {/* Glow Accent */}
         <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-red-600 via-amber-500 to-red-600"></div>
 
@@ -102,10 +102,10 @@ export const PinModal: React.FC<PinModalProps> = ({
                   <span>Akses Khusus Panitia</span>
                 </span>
               </div>
-              <h3 className="text-base sm:text-lg font-black text-white mt-1">
+              <h3 className="text-base sm:text-lg font-black text-white mt-1 font-heading">
                 Autentikasi Panitia
               </h3>
-              <p className="text-xs text-slate-400 font-medium">
+              <p className="text-xs text-slate-300 font-medium">
                 Membuka akses: <span className="text-amber-300 font-bold">{targetMenuTitle}</span>
               </p>
             </div>
@@ -113,13 +113,13 @@ export const PinModal: React.FC<PinModalProps> = ({
           <button 
             type="button"
             onClick={handleModalClose}
-            className="text-slate-400 hover:text-white p-1.5 rounded-xl hover:bg-slate-800 transition-colors"
+            className="text-slate-400 hover:text-white p-1.5 rounded-xl hover:bg-[#152345] transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <div className="mb-5 p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 text-[11px] text-slate-400 leading-relaxed">
+        <div className="mb-5 p-3.5 rounded-2xl bg-[#0b1329] border border-[#1e2d4d] text-xs text-slate-300 leading-relaxed">
           <div className="flex items-center gap-1.5 text-amber-400 font-bold mb-1">
             <ShieldCheck className="w-3.5 h-3.5" />
             <span>Akses Terbatas Panitia</span>
@@ -129,7 +129,7 @@ export const PinModal: React.FC<PinModalProps> = ({
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-bold text-slate-300 mb-1.5">
+            <label className="block text-xs font-bold text-slate-200 mb-1.5">
               Masukkan PIN Panitia
             </label>
             <div className="relative">
@@ -140,7 +140,7 @@ export const PinModal: React.FC<PinModalProps> = ({
                 onChange={(e) => setPin(e.target.value)}
                 placeholder={lockoutRemaining > 0 ? `Terkunci (${lockoutRemaining}s)...` : "Ketik PIN Panitia..."}
                 autoFocus
-                className="w-full bg-slate-950 border border-slate-700 focus:border-amber-500 disabled:opacity-50 disabled:bg-slate-900 rounded-xl px-4 py-3 text-center text-xl font-mono tracking-widest text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-500/20 pr-12 transition-all shadow-inner"
+                className="w-full bg-[#0b1329] border border-[#1e2d4d] focus:border-amber-400 disabled:opacity-50 disabled:bg-[#070d1d] rounded-xl px-4 py-3 text-center text-xl font-mono tracking-widest text-amber-400 focus:outline-none focus:ring-2 focus:ring-amber-500/20 pr-12 transition-all shadow-inner"
               />
               <button
                 type="button"

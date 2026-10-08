@@ -122,7 +122,7 @@ export const IdCardModule: React.FC<IdCardModuleProps> = ({ registrations }) => 
               setSelectedTeamId(e.target.value);
               setSelectedMemberId(null);
             }}
-            className="w-full bg-slate-950 border border-slate-700 rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-amber-500"
+            className="w-full bg-[#0b1329] border border-[#1e2d4d] rounded-xl px-4 py-2.5 text-xs text-white focus:outline-none focus:border-amber-400"
           >
             {registrations.length === 0 ? (
               <option value="">Belum ada data peleton terdaftar</option>
@@ -138,8 +138,8 @@ export const IdCardModule: React.FC<IdCardModuleProps> = ({ registrations }) => 
 
         {/* Role Filters */}
         <div className="space-y-1">
-          <label className="block text-xs font-semibold text-slate-400">Filter Kategori Kartu:</label>
-          <div className="flex items-center gap-1.5 p-1 bg-slate-950 border border-slate-800 rounded-xl">
+          <label className="block text-xs font-semibold text-slate-300">Filter Kategori Kartu:</label>
+          <div className="flex items-center gap-1.5 p-1 bg-[#0b1329] border border-[#1e2d4d] rounded-xl">
             {(['All', 'Danton', 'Pasukan', 'Official'] as const).map((cat) => (
               <button
                 key={cat}
@@ -160,13 +160,13 @@ export const IdCardModule: React.FC<IdCardModuleProps> = ({ registrations }) => 
 
       {/* Selected Team Info Banner */}
       {currentTeam && (
-        <div className="no-print p-4 rounded-xl bg-slate-900 border border-slate-800 flex flex-wrap items-center justify-between gap-4 text-xs">
+        <div className="no-print p-4 rounded-xl bg-[#101b35] border border-[#1e2d4d] flex flex-wrap items-center justify-between gap-4 text-xs">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 font-black font-mono">
               G4
             </div>
             <div>
-              <div className="text-white font-bold text-sm">{currentTeam.namaSekolah}</div>
+              <div className="text-white font-bold text-sm font-heading">{currentTeam.namaSekolah}</div>
               <div className="text-slate-400">
                 Peleton: <b className="text-slate-200">{currentTeam.namaPeleton}</b> · Jenjang:{' '}
                 <b className="text-slate-200">{currentTeam.jenjang}</b>
@@ -174,13 +174,13 @@ export const IdCardModule: React.FC<IdCardModuleProps> = ({ registrations }) => 
             </div>
           </div>
           <div className="flex items-center gap-4">
-            <div className="bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800">
+            <div className="bg-[#0b1329] px-3 py-1.5 rounded-lg border border-[#1e2d4d]">
               <span className="text-slate-400">No. Tampil (TM): </span>
               <span className="font-mono font-black text-amber-400 text-base ml-1">
                 {currentTeam.noTampil ? `#${currentTeam.noTampil}` : 'BELUM DIUNDI'}
               </span>
             </div>
-            <div className="bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800 font-mono text-slate-300">
+            <div className="bg-[#0b1329] px-3 py-1.5 rounded-lg border border-[#1e2d4d] font-mono text-slate-300">
               Total Kartu: <b className="text-white">{filteredMembers.length}</b>
             </div>
           </div>

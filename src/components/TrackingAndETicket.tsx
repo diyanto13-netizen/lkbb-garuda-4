@@ -136,7 +136,7 @@ export const TrackingAndETicket: React.FC<TrackingAndETicketProps> = ({
       </div>
 
       {/* Search Input Box */}
-      <div className="no-print bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl">
+      <div className="no-print bg-[#101b35] border border-[#1e2d4d] rounded-2xl p-6 shadow-xl">
         <div className="relative">
           <Search className="w-5 h-5 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
           <input
@@ -144,12 +144,12 @@ export const TrackingAndETicket: React.FC<TrackingAndETicketProps> = ({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Ketik No. Registrasi, No. WhatsApp Pembina, atau Nama Sekolah..."
-            className="w-full bg-slate-950 border border-slate-700 rounded-xl pl-12 pr-4 py-3.5 text-sm text-white focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500"
+            className="w-full bg-[#0b1329] border border-[#1e2d4d] rounded-xl pl-12 pr-4 py-3.5 text-sm text-white focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400"
           />
         </div>
 
         {/* Helpful Search Tip */}
-        <div className="mt-3 text-[11px] text-slate-500 font-mono flex items-center gap-1.5">
+        <div className="mt-3 text-[11px] text-slate-400 font-mono flex items-center gap-1.5">
           <span>Tip: Masukkan No. Registrasi, Nama Sekolah, atau No. WhatsApp yang terdaftar pada formulir pendaftaran.</span>
         </div>
       </div>
@@ -157,9 +157,9 @@ export const TrackingAndETicket: React.FC<TrackingAndETicketProps> = ({
       {/* Search Results */}
       <div className="no-print space-y-4">
         {searchQuery.trim() !== '' && filtered.length === 0 ? (
-          <div className="p-8 rounded-2xl bg-slate-900/40 border border-slate-800 text-center space-y-2">
-            <Search className="w-8 h-8 text-slate-600 mx-auto" />
-            <h4 className="text-sm font-bold text-white">Data Tidak Ditemukan</h4>
+          <div className="p-8 rounded-2xl bg-[#101b35]/60 border border-[#1e2d4d] text-center space-y-2">
+            <Search className="w-8 h-8 text-slate-500 mx-auto" />
+            <h4 className="text-sm font-bold text-white font-heading">Data Tidak Ditemukan</h4>
             <p className="text-xs text-slate-400">
               Tidak ada peleton dengan kata kunci &quot;{searchQuery}&quot;. Pastikan nomor registrasi atau ejaan nama sekolah sudah benar.
             </p>
@@ -168,21 +168,21 @@ export const TrackingAndETicket: React.FC<TrackingAndETicketProps> = ({
           filtered.map((item) => (
             <div
               key={item.id}
-              className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl hover:border-slate-700 transition-all flex flex-col md:flex-row md:items-center justify-between gap-6"
+              className="bg-[#101b35] border border-[#1e2d4d] rounded-2xl p-6 shadow-xl hover:border-amber-500/40 transition-all flex flex-col md:flex-row md:items-center justify-between gap-6"
             >
               <div className="space-y-3 flex-1">
                 <div className="flex flex-wrap items-center gap-2">
-                  <span className="font-mono text-xs font-bold text-amber-400 bg-slate-950 border border-slate-800 px-2.5 py-1 rounded">
+                  <span className="font-mono text-xs font-bold text-amber-400 bg-[#0b1329] border border-[#1e2d4d] px-2.5 py-1 rounded">
                     {item.noRegistrasi}
                   </span>
-                  <span className="text-xs font-bold text-slate-300 bg-slate-800 px-2 py-0.5 rounded">
+                  <span className="text-xs font-bold text-slate-300 bg-[#142347] border border-[#233868] px-2 py-0.5 rounded">
                     {item.jenjang}
                   </span>
                   {getStatusBadge(item.status)}
                 </div>
 
                 <div>
-                  <h4 className="text-xl font-bold text-white flex items-center gap-2">
+                  <h4 className="text-xl font-bold text-white flex items-center gap-2 font-heading">
                     <Building className="w-5 h-5 text-amber-400 shrink-0" />
                     <span>{item.namaSekolah}</span>
                   </h4>
@@ -195,17 +195,17 @@ export const TrackingAndETicket: React.FC<TrackingAndETicketProps> = ({
 
                 {/* Performance Number & Participants Badge */}
                 <div className="flex flex-wrap items-center gap-4 text-xs pt-1">
-                  <div className="bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800">
+                  <div className="bg-[#0b1329] px-3 py-1.5 rounded-lg border border-[#1e2d4d]">
                     <span className="text-slate-400">No. Peserta: </span>
                     <b className="font-mono text-white">{item.noPeserta || 'Belum Terbit'}</b>
                   </div>
-                  <div className="bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800">
+                  <div className="bg-[#0b1329] px-3 py-1.5 rounded-lg border border-[#1e2d4d]">
                     <span className="text-slate-400">No. Urut Tampil (TM): </span>
                     <b className="font-mono text-amber-400 text-sm">
                       {item.noTampil ? `NOMOR ${item.noTampil}` : 'Belum Diundi'}
                     </b>
                   </div>
-                  <div className="bg-slate-950 px-3 py-1.5 rounded-lg border border-slate-800">
+                  <div className="bg-[#0b1329] px-3 py-1.5 rounded-lg border border-[#1e2d4d]">
                     <span className="text-slate-400">Status Bayar: </span>
                     <b className={item.statusPembayaran === 'Lunas' ? 'text-emerald-400' : 'text-amber-400'}>
                       {item.statusPembayaran} (Rp {item.nominalBayar.toLocaleString('id-ID')})

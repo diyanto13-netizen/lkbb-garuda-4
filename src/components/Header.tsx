@@ -30,9 +30,9 @@ export const Header: React.FC<HeaderProps> = ({
   isCloudConnected = true
 }) => {
   return (
-    <header className="no-print bg-slate-950/95 border-b border-slate-800/80 sticky top-0 z-40 backdrop-blur-md shadow-2xl">
+    <header className="no-print bg-[#0b1329]/95 border-b border-[#1b2848] sticky top-0 z-40 backdrop-blur-md shadow-2xl">
       {/* Top Banner Ribbon */}
-      <div className="bg-gradient-to-r from-red-950 via-slate-900 to-amber-950 border-b border-amber-500/20 px-4 py-2 text-xs sm:text-sm text-slate-300 flex items-center justify-between">
+      <div className="bg-gradient-to-r from-[#170a18] via-[#0e1933] to-[#1c1409] border-b border-amber-500/20 px-4 py-2 text-xs sm:text-sm text-slate-300 flex items-center justify-between">
         <div className="flex items-center gap-2 max-w-7xl mx-auto w-full justify-between">
           <div className="flex items-center gap-2 font-mono text-xs text-amber-300">
             <School className="w-4 h-4 text-amber-400 shrink-0" />

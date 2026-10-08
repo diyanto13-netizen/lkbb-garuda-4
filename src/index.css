@@ -4,8 +4,11 @@
   html {
     font-size: 16px;
     -webkit-text-size-adjust: 100%;
+    background-color: #0b1329;
   }
   body {
+    background-color: #0b1329;
+    color: #f1f5f9;
     font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -26,14 +29,14 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #090e17;
+  background: #0b1329;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #1e2d4a;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
+  background: #2b3d63;
 }
 
 /* Print Specific Rules for LKBB Garuda IV */

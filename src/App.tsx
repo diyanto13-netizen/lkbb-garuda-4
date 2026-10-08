@@ -482,7 +482,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-amber-500 selection:text-slate-950">
+    <div className="min-h-screen bg-[#0b1329] text-slate-100 flex flex-col font-sans selection:bg-amber-500 selection:text-slate-950">
       {/* Navigation Header */}
       <Header
         currentTab={currentTab}
@@ -688,7 +688,7 @@ export default function App() {
       )}
 
       {/* Official Footer */}
-      <footer className="no-print mt-auto border-t border-slate-900 bg-slate-950 py-8 text-center text-xs text-slate-500 space-y-2">
+      <footer className="no-print mt-auto border-t border-slate-800/80 bg-[#070d1d] py-8 text-center text-xs text-slate-400 space-y-2">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-left">
             <div className="font-bold text-slate-300">

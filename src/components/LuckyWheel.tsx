@@ -477,7 +477,7 @@ export const LuckyWheel: React.FC<LuckyWheelProps> = ({
       {/* Main Wheel Stage */}
       <div className={`no-print grid grid-cols-1 ${isFullscreen ? 'xl:grid-cols-12 gap-8 items-start' : 'lg:grid-cols-12 gap-8 items-start'}`}>
         {/* Left Side: Canvas Lucky Wheel */}
-        <div className={`${isFullscreen ? 'xl:col-span-7' : 'lg:col-span-7'} bg-slate-900/90 border border-slate-800 rounded-3xl p-6 sm:p-8 flex flex-col items-center shadow-2xl relative`}>
+        <div className={`${isFullscreen ? 'xl:col-span-7' : 'lg:col-span-7'} bg-[#101b35] border border-[#1e2d4d] rounded-3xl p-6 sm:p-8 flex flex-col items-center shadow-2xl relative`}>
           {/* Wheel Pointer Pin at Top */}
           <div className="relative mb-2 z-20">
             <div className={`w-0 h-0 border-l-[14px] border-l-transparent border-r-[14px] border-r-transparent border-t-[28px] border-t-amber-400 filter drop-shadow-[0_4px_8px_rgba(234,179,8,0.7)] ${
@@ -486,7 +486,7 @@ export const LuckyWheel: React.FC<LuckyWheelProps> = ({
           </div>
 
           {/* HTML5 Canvas */}
-          <div className={`relative p-2 bg-slate-950 rounded-full border-4 border-slate-800 shadow-[0_0_60px_rgba(234,179,8,0.2)] transition-all ${
+          <div className={`relative p-2 bg-[#0b1329] rounded-full border-4 border-[#1e2d4d] shadow-[0_0_60px_rgba(234,179,8,0.2)] transition-all ${
             isFullscreen ? 'shadow-[0_0_80px_rgba(234,179,8,0.3)]' : ''
           }`}>
             <canvas
@@ -516,7 +516,7 @@ export const LuckyWheel: React.FC<LuckyWheelProps> = ({
             </div>
           </div>
 
-          <div className="mt-3 text-[11px] text-slate-500 flex items-center gap-1.5">
+          <div className="mt-3 text-[11px] text-slate-400 flex items-center gap-1.5">
             <Volume2 className="w-3.5 h-3.5 text-amber-400" />
             <span>Dilengkapi efek suara putaran ratchet & konfeti selebrasi</span>
           </div>
@@ -526,7 +526,7 @@ export const LuckyWheel: React.FC<LuckyWheelProps> = ({
         <div className={`${isFullscreen ? 'xl:col-span-5' : 'lg:col-span-5'} space-y-6`}>
           {/* Active Target Team Card (Normal mode only, Fullscreen has spotlight banner) */}
           {!isFullscreen && (
-            <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+            <div className="bg-[#101b35] border border-[#1e2d4d] rounded-2xl p-6 shadow-xl space-y-4">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-mono font-bold text-amber-400 uppercase">
                   PELETON YANG DIUNDI

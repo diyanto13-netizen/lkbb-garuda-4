@@ -54,8 +54,8 @@ export const QuotaDashboard: React.FC<QuotaDashboardProps> = ({
   return (
     <div className="space-y-10">
       {/* Hero Banner with Paskibra aesthetic */}
-      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900 border border-slate-800 p-8 sm:p-12 shadow-2xl">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-500/10 via-transparent to-transparent pointer-events-none" />
+      <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-[#101b35] via-[#0b1329] to-[#101b35] border border-amber-500/25 p-8 sm:p-12 shadow-2xl">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-amber-500/15 via-transparent to-transparent pointer-events-none" />
         
         <div className="relative z-10">
           <div className="max-w-3xl">
@@ -64,9 +64,9 @@ export const QuotaDashboard: React.FC<QuotaDashboardProps> = ({
               <span>KOMPETISI BARIS BERBARIS RESMI SE-JAWA BARAT</span>
             </div>
 
-            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight">
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight font-heading">
               LKBB GARUDA IV <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-300 to-yellow-500">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-amber-400 to-yellow-500">
                 SMKS PGRI 1 KOTA SUKABUMI
               </span>
             </h2>
@@ -78,14 +78,14 @@ export const QuotaDashboard: React.FC<QuotaDashboardProps> = ({
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <button
                 onClick={onStartRegister}
-                className="px-6 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm shadow-xl shadow-amber-500/25 transition-all flex items-center gap-2 transform active:scale-95"
+                className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-bold text-sm shadow-xl shadow-amber-500/25 transition-all flex items-center gap-2 transform active:scale-95"
               >
                 <span>Daftarkan Peleton Sekarang</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
               <button
                 onClick={onOpenTracking}
-                className="px-6 py-3.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-700 text-sm font-semibold transition-all"
+                className="px-6 py-3.5 rounded-xl bg-[#0f1931] hover:bg-[#152344] text-slate-200 border border-[#23355b] text-sm font-semibold transition-all shadow-md"
               >
                 Cek Status & Unduh E-Ticket
               </button>
@@ -295,8 +295,8 @@ export const QuotaDashboard: React.FC<QuotaDashboardProps> = ({
                 key={q.jenjang}
                 className={`relative rounded-3xl p-6 sm:p-7 transition-all duration-300 border ${
                   isFull 
-                    ? 'bg-slate-900/40 border-red-900/40 opacity-80' 
-                    : 'bg-slate-900/90 border-slate-800 hover:border-amber-500/50 shadow-xl'
+                    ? 'bg-[#0e172e]/60 border-red-900/40 opacity-80' 
+                    : 'bg-[#101b35] border-[#1e2d4d] hover:border-amber-500/50 shadow-xl hover:shadow-amber-500/5'
                 }`}
               >
                 {/* Header card */}
@@ -305,7 +305,7 @@ export const QuotaDashboard: React.FC<QuotaDashboardProps> = ({
                     <span className="text-xs sm:text-sm font-mono font-bold tracking-widest text-amber-400 uppercase">
                       TINGKAT
                     </span>
-                    <h4 className="text-2xl sm:text-3xl font-black text-white mt-0.5">{q.jenjang}</h4>
+                    <h4 className="text-2xl sm:text-3xl font-black text-white mt-0.5 font-heading">{q.jenjang}</h4>
                   </div>
                   {isFull ? (
                     <span className="text-xs font-bold text-red-400 bg-red-950/80 border border-red-800 px-2.5 py-1 rounded-lg uppercase">
@@ -328,7 +328,7 @@ export const QuotaDashboard: React.FC<QuotaDashboardProps> = ({
                       Sisa {remaining} Peleton
                     </span>
                   </div>
-                  <div className="w-full bg-slate-800 rounded-full h-3.5 overflow-hidden p-0.5 border border-slate-700/50">
+                  <div className="w-full bg-[#0b1329] rounded-full h-3.5 overflow-hidden p-0.5 border border-[#1e2d4d]">
                     <div
                       className={`h-full rounded-full transition-all duration-700 ${
                         isFull
@@ -343,7 +343,7 @@ export const QuotaDashboard: React.FC<QuotaDashboardProps> = ({
                 </div>
 
                 {/* Pricing & Terms */}
-                <div className="mt-6 pt-5 border-t border-slate-800/80 space-y-2.5 text-xs sm:text-sm">
+                <div className="mt-6 pt-5 border-t border-[#1e2d4d] space-y-2.5 text-xs sm:text-sm">
                   <div className="flex justify-between items-center text-slate-200">
                     <span className="font-medium">Biaya Pendaftaran</span>
                     <span className="font-mono font-black text-base sm:text-lg text-amber-400">
@@ -368,7 +368,7 @@ export const QuotaDashboard: React.FC<QuotaDashboardProps> = ({
                     className={`w-full py-3 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center justify-center gap-2 ${
                       isFull
                         ? 'bg-slate-800 text-slate-500 cursor-not-allowed'
-                        : 'bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-lg shadow-amber-500/25 active:scale-95'
+                        : 'bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 shadow-lg shadow-amber-500/25 active:scale-95'
                     }`}
                   >
                     {isFull ? 'Pendaftaran Ditutup' : 'Daftar Jenjang Ini'}
@@ -381,7 +381,7 @@ export const QuotaDashboard: React.FC<QuotaDashboardProps> = ({
       </section>
 
       {/* Official Bank Account & Transfer Rules */}
-      <section className="bg-slate-900/80 border border-slate-800 rounded-3xl p-6 sm:p-9 shadow-xl">
+      <section className="bg-[#101b35] border border-[#1e2d4d] rounded-3xl p-6 sm:p-9 shadow-xl">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
           <div className="lg:col-span-2 space-y-5">
             <div className="flex items-center gap-2 text-amber-400 text-xs sm:text-sm font-mono font-bold uppercase tracking-wider">
@@ -389,7 +389,7 @@ export const QuotaDashboard: React.FC<QuotaDashboardProps> = ({
               <span>REKENING PEMBAYARAN RESMI PANITIA</span>
             </div>
             <div>
-              <h4 className="text-2xl sm:text-3xl font-black text-white">
+              <h4 className="text-2xl sm:text-3xl font-black text-white font-heading">
                 {bankConfig.bankName}
               </h4>
               <p className="text-xs sm:text-sm text-slate-300 mt-1">
@@ -397,7 +397,7 @@ export const QuotaDashboard: React.FC<QuotaDashboardProps> = ({
               </p>
             </div>
 
-            <div className="p-4 sm:p-5 rounded-2xl bg-slate-950 border border-slate-800/80 max-w-xl shadow-inner">
+            <div className="p-4 sm:p-5 rounded-2xl bg-[#0b1329] border border-[#1e2d4d] max-w-xl shadow-inner">
               <div className="text-xs sm:text-sm text-slate-400 mb-1.5 font-medium">Nomor Rekening Resmi Panitia:</div>
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <span className="text-2xl sm:text-3xl font-mono font-black text-amber-400 tracking-wider">
@@ -405,7 +405,7 @@ export const QuotaDashboard: React.FC<QuotaDashboardProps> = ({
                 </span>
                 <button
                   onClick={() => copyToClipboard(bankConfig.nomorRekening)}
-                  className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all self-start sm:self-auto border border-slate-700"
+                  className="px-4 py-2 rounded-xl bg-[#142347] hover:bg-[#1a2d59] text-slate-200 text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all self-start sm:self-auto border border-[#233868]"
                 >
                   {copied ? (
                     <>
@@ -429,8 +429,8 @@ export const QuotaDashboard: React.FC<QuotaDashboardProps> = ({
           </div>
 
           {/* Quick Notice Card */}
-          <div className="bg-slate-950/80 border border-slate-800 rounded-2xl p-6 sm:p-7 space-y-4 shadow-lg">
-            <div className="flex items-center gap-2 text-sm sm:text-base font-bold text-white">
+          <div className="bg-[#0b1329] border border-[#1e2d4d] rounded-2xl p-6 sm:p-7 space-y-4 shadow-lg">
+            <div className="flex items-center gap-2 text-sm sm:text-base font-bold text-white font-heading">
               <ShieldCheck className="w-5 h-5 text-emerald-400" />
               <span>Verifikasi Berkas & Transaksi</span>
             </div>

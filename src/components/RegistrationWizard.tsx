@@ -317,10 +317,10 @@ export const RegistrationWizard: React.FC<RegistrationWizardProps> = ({
               key={s.num}
               className={`p-3 rounded-xl border flex flex-col items-center sm:flex-row sm:gap-3 transition-all ${
                 isActive
-                  ? 'bg-amber-500/10 border-amber-500/50 text-amber-400'
+                  ? 'bg-amber-500/15 border-amber-500/60 text-amber-400 shadow-md shadow-amber-500/10'
                   : isDone
-                  ? 'bg-emerald-950/30 border-emerald-800/40 text-emerald-400'
-                  : 'bg-slate-900/60 border-slate-800 text-slate-500'
+                  ? 'bg-emerald-950/40 border-emerald-800/50 text-emerald-400'
+                  : 'bg-[#101b35] border-[#1e2d4d] text-slate-400'
               }`}
             >
               <div
@@ -329,7 +329,7 @@ export const RegistrationWizard: React.FC<RegistrationWizardProps> = ({
                     ? 'bg-amber-500 text-slate-950'
                     : isDone
                     ? 'bg-emerald-500 text-slate-950'
-                    : 'bg-slate-800 text-slate-400'
+                    : 'bg-[#172648] text-slate-400'
                 }`}
               >
                 {isDone ? <CheckCircle2 className="w-4 h-4" /> : s.num}
@@ -359,7 +359,7 @@ export const RegistrationWizard: React.FC<RegistrationWizardProps> = ({
       )}
 
       {/* Main Form Box */}
-      <div className="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 sm:p-8 shadow-2xl">
+      <div className="bg-[#101b35] border border-[#1e2d4d] rounded-2xl p-6 sm:p-8 shadow-2xl">
         {/* STEP 1: PANGKALAN */}
         {currentStep === 1 && (
           <div className="space-y-6">

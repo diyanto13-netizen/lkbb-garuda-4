@@ -327,7 +327,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
         </div>
 
         {/* Tab switcher */}
-        <div className="flex items-center gap-1.5 p-1 bg-slate-900 border border-slate-800 rounded-xl">
+        <div className="flex items-center gap-1.5 p-1 bg-[#101b35] border border-[#1e2d4d] rounded-xl">
           <button
             onClick={() => setActiveTab('verifikasi')}
             className={`px-4 py-2 rounded-lg text-xs font-bold transition-all ${
@@ -356,7 +356,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
           {/* REAL FINANCIAL RECONCILIATION WIDGET */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
             {/* Total Kas Riil Masuk */}
-            <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-950/60 to-slate-900 border border-emerald-800/60 shadow-xl">
+            <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-950/70 to-[#0e172e] border border-emerald-800/60 shadow-xl">
               <div className="flex items-center justify-between text-xs font-mono text-emerald-400">
                 <span>TOTAL KAS SAH MASUK</span>
                 <DollarSign className="w-4 h-4" />
@@ -370,45 +370,45 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
             </div>
 
             {/* Kas SD */}
-            <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl">
+            <div className="p-5 rounded-2xl bg-[#101b35] border border-[#1e2d4d] shadow-xl">
               <div className="text-xs font-mono text-slate-400">KAS TINGKAT SD/MI</div>
               <div className="text-xl font-bold font-mono text-amber-400 mt-2">
                 Rp {kasSD.toLocaleString('id-ID')}
               </div>
-              <div className="text-[11px] text-slate-500 mt-1">
+              <div className="text-[11px] text-slate-400 mt-1">
                 {verifiedList.filter(r => r.jenjang === 'SD/MI').length} Peleton Sah
               </div>
             </div>
 
             {/* Kas SMP */}
-            <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl">
+            <div className="p-5 rounded-2xl bg-[#101b35] border border-[#1e2d4d] shadow-xl">
               <div className="text-xs font-mono text-slate-400">KAS TINGKAT SMP/MTs</div>
               <div className="text-xl font-bold font-mono text-amber-400 mt-2">
                 Rp {kasSMP.toLocaleString('id-ID')}
               </div>
-              <div className="text-[11px] text-slate-500 mt-1">
+              <div className="text-[11px] text-slate-400 mt-1">
                 {verifiedList.filter(r => r.jenjang === 'SMP/MTs').length} Peleton Sah
               </div>
             </div>
 
             {/* Kas SMA */}
-            <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl">
+            <div className="p-5 rounded-2xl bg-[#101b35] border border-[#1e2d4d] shadow-xl">
               <div className="text-xs font-mono text-slate-400">KAS TINGKAT SMA/SMK/MA</div>
               <div className="text-xl font-bold font-mono text-amber-400 mt-2">
                 Rp {kasSMA.toLocaleString('id-ID')}
               </div>
-              <div className="text-[11px] text-slate-500 mt-1">
+              <div className="text-[11px] text-slate-400 mt-1">
                 {verifiedList.filter(r => r.jenjang === 'SMA/SMK/MA').length} Peleton Sah
               </div>
             </div>
 
             {/* Total Piutang DP */}
-            <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 shadow-xl">
+            <div className="p-5 rounded-2xl bg-[#101b35] border border-[#1e2d4d] shadow-xl">
               <div className="text-xs font-mono text-amber-400">SISA PIUTANG DP</div>
               <div className="text-xl font-bold font-mono text-red-400 mt-2">
                 Rp {totalPiutangDP.toLocaleString('id-ID')}
               </div>
-              <div className="text-[11px] text-slate-500 mt-1">
+              <div className="text-[11px] text-slate-400 mt-1">
                 Menunggu Pelunasan Sebelum TM
               </div>
             </div>
@@ -463,10 +463,10 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
           </div>
 
           {/* Table of Registrations */}
-          <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-2xl">
+          <div className="bg-[#101b35] border border-[#1e2d4d] rounded-2xl overflow-hidden shadow-2xl">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-950 text-slate-400 font-mono text-[10px] uppercase border-b border-slate-800">
+                <thead className="bg-[#0b1329] text-slate-400 font-mono text-[10px] uppercase border-b border-[#1e2d4d]">
                   <tr>
                     <th className="px-4 py-3">No. Reg / Peserta</th>
                     <th className="px-4 py-3">Pangkalan Sekolah</th>
