@@ -110,8 +110,3 @@ export const downloadDocumentFile = (url: string, fileName: string) => {
  * Fallback URL untuk Bukti Transfer Pembayaran jika gambar rusak / tidak terbaca
  */
 export const DEFAULT_BUKTI_BAYAR_PREVIEW = 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&auto=format&fit=crop&q=80';
-
-/**
- * Fallback SVG Data URL untuk Surat Tugas Resmi jika gambar pendaftar rusak / tidak terbaca
- */
-export const DEFAULT_SURAT_TUGAS_PREVIEW = 'https://images.unsplash.com/photo-1568667256549-094345857637?w=1200&auto=format&fit=crop&q=80';
