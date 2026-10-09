@@ -305,34 +305,34 @@ export const TrackingAndETicket: React.FC<TrackingAndETicketProps> = ({
               <div className="grid grid-cols-3 gap-6 items-start py-2">
                 <div className="col-span-2 space-y-4 text-xs">
                   <div>
-                    <span className="text-slate-500 font-mono text-[10px] uppercase">Pangkalan Sekolah</span>
-                    <div className="text-lg font-black text-slate-950">{selectedTicket.namaSekolah}</div>
-                    <div className="text-slate-600 text-xs">
+                    <span className="text-slate-500 font-mono text-xs uppercase font-semibold">Pangkalan Sekolah</span>
+                    <div className="text-xl font-black text-slate-950 mt-0.5">{selectedTicket.namaSekolah}</div>
+                    <div className="text-slate-600 text-xs sm:text-sm mt-0.5">
                       {selectedTicket.npsn ? `NPSN: ${selectedTicket.npsn} · ` : ''}{selectedTicket.kotaAsal}
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <span className="text-slate-500 font-mono text-[10px] uppercase">Nama Peleton</span>
-                      <div className="font-bold text-slate-900 text-sm">{selectedTicket.namaPeleton}</div>
+                      <span className="text-slate-500 font-mono text-xs uppercase font-semibold">Nama Peleton</span>
+                      <div className="font-bold text-slate-900 text-sm mt-0.5">{selectedTicket.namaPeleton}</div>
                     </div>
                     <div>
-                      <span className="text-slate-500 font-mono text-[10px] uppercase">No. Registrasi</span>
-                      <div className="font-mono font-bold text-slate-900 text-sm">{selectedTicket.noRegistrasi}</div>
+                      <span className="text-slate-500 font-mono text-xs uppercase font-semibold">No. Registrasi</span>
+                      <div className="font-mono font-bold text-slate-900 text-sm mt-0.5">{selectedTicket.noRegistrasi}</div>
                     </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4 pt-2 border-t border-slate-200">
                     <div>
-                      <span className="text-slate-500 font-mono text-[10px] uppercase">Nomor Peserta</span>
-                      <div className="text-base font-black font-mono text-red-700">
+                      <span className="text-slate-500 font-mono text-xs uppercase font-semibold">Nomor Peserta</span>
+                      <div className="text-base sm:text-lg font-black font-mono text-red-700 mt-0.5">
                         {selectedTicket.noPeserta || 'Belum Terbit (Pending)'}
                       </div>
                     </div>
                     <div>
-                      <span className="text-slate-500 font-mono text-[10px] uppercase">No. Urut Tampil (TM)</span>
-                      <div className="text-xl font-black font-mono text-amber-600 print:text-slate-950">
+                      <span className="text-slate-500 font-mono text-xs uppercase font-semibold">No. Urut Tampil (TM)</span>
+                      <div className="text-xl sm:text-2xl font-black font-mono text-amber-600 print:text-slate-950 mt-0.5">
                         {selectedTicket.noTampil ? `NOMOR ${selectedTicket.noTampil}` : 'BELUM DIUNDI'}
                       </div>
                     </div>
@@ -340,14 +340,14 @@ export const TrackingAndETicket: React.FC<TrackingAndETicketProps> = ({
 
                   <div className="pt-2 border-t border-slate-200 flex justify-between">
                     <div>
-                      <span className="text-slate-500 font-mono text-[10px] uppercase">Status Bayar:</span>
-                      <span className="font-bold ml-1 text-slate-900">
+                      <span className="text-slate-500 font-mono text-xs uppercase font-semibold">Status Bayar:</span>
+                      <span className="font-bold ml-1 text-slate-900 text-xs">
                         {selectedTicket.statusPembayaran} (Rp {selectedTicket.nominalBayar.toLocaleString('id-ID')})
                       </span>
                     </div>
                     <div>
-                      <span className="text-slate-500 font-mono text-[10px] uppercase">Total Anggota:</span>
-                      <span className="font-bold ml-1 text-slate-900">{selectedTicket.anggota.length} Orang</span>
+                      <span className="text-slate-500 font-mono text-xs uppercase font-semibold">Total Anggota:</span>
+                      <span className="font-bold ml-1 text-slate-900 text-xs">{selectedTicket.anggota.length} Orang</span>
                     </div>
                   </div>
                 </div>
@@ -359,17 +359,17 @@ export const TrackingAndETicket: React.FC<TrackingAndETicketProps> = ({
                   ) : (
                     <QrCode className="w-32 h-32 text-slate-400" />
                   )}
-                  <span className="text-[9px] font-mono text-slate-500 mt-2 block print:text-slate-700">
+                  <span className="text-xs font-mono text-slate-600 mt-2 block print:text-slate-700 font-bold">
                     OTENTIKASI DIGITAL
                   </span>
-                  <span className="text-[10px] font-bold text-emerald-700 mt-0.5 print:text-black">
+                  <span className="text-xs font-bold text-emerald-700 mt-0.5 print:text-black">
                     {selectedTicket.status.toUpperCase()}
                   </span>
                 </div>
               </div>
 
               {/* Roster Summary */}
-              <div className="mt-4 pt-3 border-t border-slate-200 text-[10px] text-slate-600">
+              <div className="mt-4 pt-3 border-t border-slate-200 text-xs text-slate-600">
                 <div className="font-bold text-slate-800 uppercase font-mono mb-1">
                   Komandan Peleton (Danton) & Official:
                 </div>
@@ -381,20 +381,20 @@ export const TrackingAndETicket: React.FC<TrackingAndETicketProps> = ({
               </div>
 
               {/* Official Stamp & Terms */}
-              <div className="mt-6 pt-4 border-t-2 border-slate-900 grid grid-cols-3 gap-4 text-[10px] text-slate-600 items-end">
+              <div className="mt-6 pt-4 border-t-2 border-slate-900 grid grid-cols-3 gap-4 text-xs text-slate-700 items-end">
                 <div className="col-span-2 space-y-1">
-                  <div className="font-bold text-slate-900">Ketentuan Resmi:</div>
-                  <ol className="list-decimal list-inside space-y-0.5">
+                  <div className="font-bold text-slate-900 text-xs">Ketentuan Resmi:</div>
+                  <ol className="list-decimal list-inside space-y-0.5 text-xs text-slate-600">
                     <li>Wajib membawa cetakan e-ticket ini saat daftar ulang Technical Meeting.</li>
                     <li>Nomor urut tampil berlaku mutlak sesuai hasil pengundian resmi.</li>
                     <li>Sisa pembayaran DP wajib dilunasi sebelum jadwal tampil peleton.</li>
                   </ol>
                 </div>
                 <div className="text-center">
-                  <div className="text-[10px] text-slate-500">Kota Sukabumi, {new Date().toLocaleDateString('id-ID')}</div>
+                  <div className="text-xs text-slate-500">Kota Sukabumi, {new Date().toLocaleDateString('id-ID')}</div>
                   <div className="text-xs font-bold text-slate-950 mt-1">Panitia Pelaksana LKBB Garuda IV</div>
                   <div className="h-10"></div>
-                  <div className="font-bold underline text-slate-900">SEKRETARIAT PANITIA</div>
+                  <div className="font-bold underline text-slate-900 text-xs">SEKRETARIAT PANITIA</div>
                 </div>
               </div>
             </div>

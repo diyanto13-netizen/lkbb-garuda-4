@@ -639,23 +639,23 @@ export default function App() {
             </div>
 
             <div className="space-y-1">
-              <span className="text-[10px] font-mono tracking-widest text-amber-400 uppercase font-bold">
+              <span className="text-xs font-mono tracking-widest text-amber-400 uppercase font-bold">
                 REGISTRASI BERHASIL DICATAT
               </span>
-              <h3 className="text-xl font-black text-white">
+              <h3 className="text-xl sm:text-2xl font-black text-white">
                 Selamat Datang, {justRegistered.namaSekolah}!
               </h3>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs sm:text-sm text-slate-300">
                 Peleton <b>{justRegistered.namaPeleton}</b> telah berhasil didaftarkan ke sistem LKBB GARUDA IV.
               </p>
             </div>
 
             <div className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-1">
-              <div className="text-[10px] font-mono text-slate-400 uppercase">NO. REGISTRASI ANDA:</div>
-              <div className="text-2xl font-black font-mono text-amber-400 tracking-wider">
+              <div className="text-xs font-mono text-slate-400 uppercase font-semibold">NO. REGISTRASI ANDA:</div>
+              <div className="text-2xl sm:text-3xl font-black font-mono text-amber-400 tracking-wider">
                 {justRegistered.noRegistrasi}
               </div>
-              <div className="text-[11px] text-slate-400">
+              <div className="text-xs sm:text-sm text-slate-300">
                 Gunakan nomor ini untuk mengecek status dan mengunduh E-Ticket resmi.
               </div>
             </div>

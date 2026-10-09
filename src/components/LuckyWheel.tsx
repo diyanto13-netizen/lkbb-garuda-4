@@ -566,14 +566,14 @@ export const LuckyWheel: React.FC<LuckyWheelProps> = ({
                     <div className="p-4 bg-slate-950 rounded-xl border border-slate-800 text-xs space-y-2">
                       <div className="flex justify-between items-start">
                         <div>
-                          <div className="text-slate-400 text-[10px] font-mono">SEKOLAH PANGKALAN:</div>
-                          <div className="font-bold text-white text-sm">{currentSelectedTeam.namaSekolah}</div>
+                          <div className="text-slate-400 text-xs font-mono uppercase font-semibold">SEKOLAH PANGKALAN:</div>
+                          <div className="font-bold text-white text-base mt-0.5">{currentSelectedTeam.namaSekolah}</div>
                         </div>
                         <span className="text-amber-400 font-mono font-bold text-xs bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">
                           {currentSelectedTeam.noPeserta || 'PESERTA'}
                         </span>
                       </div>
-                      <div className="text-slate-300">
+                      <div className="text-slate-300 text-xs">
                         Peleton: <b>{currentSelectedTeam.namaPeleton}</b> · Asal: <b>{currentSelectedTeam.kotaAsal}</b>
                       </div>
                     </div>
@@ -623,7 +623,7 @@ export const LuckyWheel: React.FC<LuckyWheelProps> = ({
                 </div>
               ) : (
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-slate-950 text-slate-400 font-mono text-[10px] uppercase border-b border-slate-800 sticky top-0">
+                  <thead className="bg-slate-950 text-slate-300 font-mono text-xs uppercase border-b border-slate-800 sticky top-0">
                     <tr>
                       <th className="px-3 py-2.5 text-center">No. Tampil</th>
                       <th className="px-3 py-2.5">Pangkalan Sekolah</th>
@@ -639,8 +639,8 @@ export const LuckyWheel: React.FC<LuckyWheelProps> = ({
                           <td className="px-3 py-2.5 text-center font-mono font-black text-amber-400 text-base">
                             #{team.noTampil}
                           </td>
-                          <td className="px-3 py-2.5 font-bold text-white text-xs">{team.namaSekolah}</td>
-                          <td className="px-3 py-2.5 text-slate-400 text-xs">{team.namaPeleton}</td>
+                          <td className="px-3 py-2.5 font-bold text-white text-xs sm:text-sm">{team.namaSekolah}</td>
+                          <td className="px-3 py-2.5 text-slate-400 text-xs sm:text-sm">{team.namaPeleton}</td>
                         </tr>
                       ))}
                   </tbody>
@@ -743,7 +743,7 @@ export const LuckyWheel: React.FC<LuckyWheelProps> = ({
                 <div className="text-xs font-bold text-slate-800">
                   PANITIA PELAKSANA LKBB GARUDA IV TINGKAT SE-JAWA BARAT
                 </div>
-                <p className="text-[10px] text-slate-600">
+                <p className="text-xs text-slate-600">
                   Jl. Pelabuhan II Perum Cipoho Indah, Cikondang, Kec. Citamiang, Kota Sukabumi, Jawa Barat 43141 · Telp: (0266) 224277
                 </p>
               </div>
@@ -791,7 +791,7 @@ export const LuckyWheel: React.FC<LuckyWheelProps> = ({
                         <td className="px-3 py-1.5 border-r border-slate-900 print:border-black text-slate-700">
                           {item.namaPeleton}
                         </td>
-                        <td className="px-3 py-1.5 text-center text-[10px] text-slate-400 font-mono">
+                        <td className="px-3 py-1.5 text-center text-xs text-slate-400 font-mono">
                           {idx + 1}. .........
                         </td>
                       </tr>
@@ -802,17 +802,17 @@ export const LuckyWheel: React.FC<LuckyWheelProps> = ({
               {/* Signatures */}
               <div className="grid grid-cols-2 gap-12 text-center text-xs pt-6 border-t border-slate-300">
                 <div>
-                  <div className="text-[11px] text-slate-600 font-semibold">Perwakilan Saksi Peserta,</div>
+                  <div className="text-xs text-slate-600 font-semibold">Perwakilan Saksi Peserta,</div>
                   <div className="h-16"></div>
                   <div className="font-bold underline text-slate-950">( ........................................ )</div>
-                  <div className="text-[10px] text-slate-500">Official / Pelatih Pangkalan</div>
+                  <div className="text-xs text-slate-500">Official / Pelatih Pangkalan</div>
                 </div>
 
                 <div>
-                  <div className="text-[11px] text-slate-600 font-semibold">Ketua Pelaksana LKBB Garuda IV,</div>
+                  <div className="text-xs text-slate-600 font-semibold">Ketua Pelaksana LKBB Garuda IV,</div>
                   <div className="h-16"></div>
                   <div className="font-bold underline text-slate-950">Hilman Hidayat</div>
-                  <div className="text-[10px] text-slate-500">Panitia Pelaksana</div>
+                  <div className="text-xs text-slate-500">Panitia Pelaksana</div>
                 </div>
               </div>
             </div>

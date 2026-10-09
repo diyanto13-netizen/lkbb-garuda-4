@@ -327,8 +327,8 @@ export const RegistrationWizard: React.FC<RegistrationWizardProps> = ({
                 {isDone ? <CheckCircle2 className="w-4 h-4" /> : s.num}
               </div>
               <div className="mt-1 sm:mt-0 text-center sm:text-left truncate">
-                <div className="text-[10px] uppercase font-mono tracking-wider opacity-70">Langkah {s.num}</div>
-                <div className="text-xs font-bold truncate text-slate-200">{s.label}</div>
+                <div className="text-xs uppercase font-mono tracking-wider opacity-75 font-semibold">Langkah {s.num}</div>
+                <div className="text-sm font-bold truncate text-slate-100">{s.label}</div>
               </div>
             </div>
           );
@@ -387,7 +387,7 @@ export const RegistrationWizard: React.FC<RegistrationWizardProps> = ({
                           {j}
                         </span>
                         {jenjang === j && (
-                          <span className="text-[10px] font-bold text-amber-400 bg-amber-500/20 px-1.5 py-0.5 rounded">
+                          <span className="text-xs font-bold text-amber-400 bg-amber-500/20 px-2 py-0.5 rounded">
                             Terpilih
                           </span>
                         )}
@@ -648,26 +648,26 @@ export const RegistrationWizard: React.FC<RegistrationWizardProps> = ({
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4 rounded-xl bg-slate-950/80 border border-slate-800">
                     <div>
-                      <div className="text-[10px] font-mono text-slate-500 uppercase">Nama Lengkap Danton</div>
+                      <div className="text-xs font-mono text-slate-400 uppercase font-semibold">Nama Lengkap Danton</div>
                       <div className="text-sm font-bold text-white mt-0.5">{danton.nama}</div>
                     </div>
                     <div>
-                      <div className="text-[10px] font-mono text-slate-500 uppercase">NISN (10 Digit)</div>
+                      <div className="text-xs font-mono text-slate-400 uppercase font-semibold">NISN (10 Digit)</div>
                       <div className="text-sm font-mono font-bold text-amber-400 mt-0.5">{danton.nisn}</div>
                     </div>
                     <div>
-                      <div className="text-[10px] font-mono text-slate-500 uppercase">Jenis Kelamin</div>
+                      <div className="text-xs font-mono text-slate-400 uppercase font-semibold">Jenis Kelamin</div>
                       <div className="text-sm font-semibold text-slate-200 mt-0.5">
                         {danton.jenisKelamin === 'L' ? 'Laki-laki (L)' : 'Perempuan (P)'}
                       </div>
                     </div>
                     <div>
-                      <div className="text-[10px] font-mono text-slate-500 uppercase">Kelas / Tingkat</div>
+                      <div className="text-xs font-mono text-slate-400 uppercase font-semibold">Kelas / Tingkat</div>
                       <div className="text-sm font-semibold text-slate-200 mt-0.5">{danton.kelas}</div>
                     </div>
                   </div>
 
-                  <div className="text-[11px] text-slate-400 italic bg-amber-500/5 p-3 rounded-lg border border-amber-500/20">
+                  <div className="text-xs text-slate-300 italic bg-amber-500/5 p-3 rounded-lg border border-amber-500/20">
                     * Catatan: Data susunan 16 pasukan dan official lainnya dapat diserahkan saat daftar ulang / verifikasi berkas sebelum Technical Meeting.
                   </div>
                 </div>
@@ -706,14 +706,14 @@ export const RegistrationWizard: React.FC<RegistrationWizardProps> = ({
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-sm text-white">Pembayaran Lunas (100%)</span>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400">
+                    <span className="text-xs font-mono px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-semibold">
                       Disarankan
                     </span>
                   </div>
                   <div className="mt-2 text-xl font-black font-mono text-emerald-400">
                     Rp {totalBiaya.toLocaleString('id-ID')}
                   </div>
-                  <div className="text-[11px] text-slate-400 mt-1">
+                  <div className="text-xs text-slate-300 mt-1">
                     Langsung terdaftar penuh tanpa kewajiban pelunasan susulan.
                   </div>
                 </button>
@@ -729,14 +729,14 @@ export const RegistrationWizard: React.FC<RegistrationWizardProps> = ({
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-sm text-white">Uang Muka / DP (Kunci Kuota)</span>
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-400">
+                    <span className="text-xs font-mono px-2 py-0.5 rounded bg-amber-500/20 text-amber-400 font-semibold">
                       Min. Rp 100.000
                     </span>
                   </div>
                   <div className="mt-2 text-xl font-black font-mono text-amber-400">
                     Rp {nominalBayar.toLocaleString('id-ID')}
                   </div>
-                  <div className="text-[11px] text-slate-400 mt-1">
+                  <div className="text-xs text-slate-300 mt-1">
                     Sisa pembayaran Rp {sisaBayar.toLocaleString('id-ID')} dapat disusulkan sebelum TM.
                   </div>
                 </button>
@@ -782,7 +782,7 @@ export const RegistrationWizard: React.FC<RegistrationWizardProps> = ({
                   <CreditCard className="w-4 h-4 text-emerald-400" />
                   <span>Unggah Bukti Transfer Pembayaran <span className="text-red-400">*</span></span>
                 </div>
-                <span className="text-[11px] text-slate-400 font-mono">JPG, PNG, atau PDF (Maks 5 MB)</span>
+                <span className="text-xs text-slate-400 font-mono">JPG, PNG, atau PDF (Maks 5 MB)</span>
               </div>
               
               <div className="border-2 border-dashed border-[#1e2d4d] hover:border-amber-400/70 rounded-2xl p-6 text-center cursor-pointer relative bg-[#101b35]/60 transition-all group">
@@ -797,7 +797,7 @@ export const RegistrationWizard: React.FC<RegistrationWizardProps> = ({
                     <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
                     <div className="text-sm font-bold text-white truncate max-w-md mx-auto">{buktiBayarFile.name}</div>
                     <div className="text-xs text-emerald-400 font-semibold">Berkas bukti transfer siap dikirim</div>
-                    <div className="text-[11px] text-slate-400">Klik untuk mengganti berkas</div>
+                    <div className="text-xs text-slate-400">Klik untuk mengganti berkas</div>
                   </div>
                 ) : (
                   <div className="space-y-2 py-3">
@@ -922,7 +922,7 @@ export const RegistrationWizard: React.FC<RegistrationWizardProps> = ({
                   placeholder="Contoh: 0071234567"
                   className="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 font-mono text-amber-400 focus:outline-none focus:border-amber-500"
                 />
-                <span className="text-[10px] text-slate-500 mt-1 block">
+                <span className="text-xs text-slate-400 mt-1 block">
                   {dantonForm.nisn.length}/10 Digit Angka
                 </span>
               </div>
@@ -952,7 +952,7 @@ export const RegistrationWizard: React.FC<RegistrationWizardProps> = ({
               </div>
 
               {memberError && (
-                <div className="p-2.5 rounded-lg bg-red-950/60 border border-red-800 text-red-300 text-[11px]">
+                <div className="p-3 rounded-lg bg-red-950/60 border border-red-800 text-red-200 text-xs">
                   {memberError}
                 </div>
               )}

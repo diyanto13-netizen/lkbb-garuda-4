@@ -465,16 +465,16 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
           {/* Table of Registrations */}
           <div className="bg-[#101b35] border border-[#1e2d4d] rounded-2xl overflow-hidden shadow-2xl">
             <div className="overflow-x-auto">
-              <table className="w-full text-left text-xs">
-                <thead className="bg-[#0b1329] text-slate-400 font-mono text-[10px] uppercase border-b border-[#1e2d4d]">
+              <table className="w-full text-left text-xs sm:text-sm">
+                <thead className="bg-[#0b1329] text-slate-300 font-mono text-xs uppercase border-b border-[#1e2d4d]">
                   <tr>
-                    <th className="px-4 py-3">No. Reg / Peserta</th>
-                    <th className="px-4 py-3">Pangkalan Sekolah</th>
-                    <th className="px-4 py-3">Jenjang</th>
-                    <th className="px-4 py-3">Pembina / Pelatih</th>
-                    <th className="px-4 py-3">Pembayaran</th>
-                    <th className="px-4 py-3">Status Verifikasi</th>
-                    <th className="px-4 py-3 text-right">Tindakan Panitia</th>
+                    <th className="px-4 py-3.5">No. Reg / Peserta</th>
+                    <th className="px-4 py-3.5">Pangkalan Sekolah</th>
+                    <th className="px-4 py-3.5">Jenjang</th>
+                    <th className="px-4 py-3.5">Pembina / Pelatih</th>
+                    <th className="px-4 py-3.5">Pembayaran</th>
+                    <th className="px-4 py-3.5">Status Verifikasi</th>
+                    <th className="px-4 py-3.5 text-right">Tindakan Panitia</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800 text-slate-300">
@@ -487,25 +487,25 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                   ) : (
                     filteredRegs.map((reg) => (
                       <tr key={reg.id} className="hover:bg-slate-800/40 transition-colors">
-                        <td className="px-4 py-3">
-                          <div className="font-mono font-bold text-amber-400">{reg.noRegistrasi}</div>
-                          <div className="text-[10px] font-mono text-slate-400 mt-0.5">
+                        <td className="px-4 py-3.5">
+                          <div className="font-mono font-bold text-amber-400 text-sm">{reg.noRegistrasi}</div>
+                          <div className="text-xs font-mono text-slate-400 mt-0.5">
                             No. Peserta: <b className="text-white">{reg.noPeserta || '-'}</b>
                           </div>
                         </td>
 
-                        <td className="px-4 py-3">
-                          <div className="font-bold text-white text-sm">{reg.namaSekolah}</div>
-                          <div className="text-slate-400 text-[11px]">
+                        <td className="px-4 py-3.5">
+                          <div className="font-bold text-white text-sm sm:text-base">{reg.namaSekolah}</div>
+                          <div className="text-slate-400 text-xs mt-0.5">
                             {reg.namaPeleton} ({reg.kotaAsal})
                           </div>
                         </td>
 
-                        <td className="px-4 py-3 font-mono font-bold text-slate-300">
+                        <td className="px-4 py-3.5 font-mono font-bold text-slate-200">
                           {reg.jenjang}
                         </td>
 
-                        <td className="px-4 py-3 text-[11px]">
+                        <td className="px-4 py-3.5 text-xs">
                           <div className="space-y-1.5 min-w-[210px]">
                             <div>
                               <span className="text-slate-400 font-medium">Pembina: </span>
@@ -519,21 +519,21 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                                   href={getVerificationWhatsAppUrl(reg)}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-950/90 hover:bg-emerald-600 text-emerald-400 hover:text-white border border-emerald-600/60 text-[11px] font-semibold transition-all group shadow-sm"
+                                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-950/90 hover:bg-emerald-600 text-emerald-400 hover:text-white border border-emerald-600/60 text-xs font-semibold transition-all group shadow-sm"
                                   title="Nomor WhatsApp Pembina aktif: Klik untuk mengirim pesan hasil verifikasi sah & pemberitahuan cek E-Ticket resmi di aplikasi"
                                 >
                                   <MessageCircle className="w-3.5 h-3.5 text-emerald-400 group-hover:text-white shrink-0 animate-pulse" />
                                   <span className="font-mono">{reg.noWaPembina}</span>
-                                  <span className="text-[10px] bg-emerald-800/90 group-hover:bg-emerald-800 px-1.5 py-0.5 rounded text-emerald-100 group-hover:text-white font-bold ml-0.5 flex items-center gap-1">
-                                    <Send className="w-2.5 h-2.5" />
+                                  <span className="text-xs bg-emerald-800/90 group-hover:bg-emerald-800 px-1.5 py-0.5 rounded text-emerald-100 group-hover:text-white font-bold ml-0.5 flex items-center gap-1">
+                                    <Send className="w-3 h-3" />
                                     Kirim E-Ticket WA
                                   </span>
                                 </a>
                               ) : (
-                                <div className="flex items-center gap-1.5 text-slate-400 font-mono text-[10px]">
-                                  <span className="text-slate-300">WA: {reg.noWaPembina}</span>
+                                <div className="flex items-center gap-1.5 text-slate-300 font-mono text-xs">
+                                  <span>WA: {reg.noWaPembina}</span>
                                   <span 
-                                    className="text-[9px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 font-sans italic border border-slate-700/60"
+                                    className="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-400 font-sans italic border border-slate-700/60"
                                     title="Pesan verifikasi E-Ticket WA aktif otomatis setelah panitia menetapkan status Terverifikasi / Sah"
                                   >
                                     Aktif saat Sah
@@ -542,32 +542,32 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                               )}
                             </div>
 
-                            <div className="text-slate-400 text-[10px] pt-1 border-t border-slate-800/60">
+                            <div className="text-slate-400 text-xs pt-1 border-t border-slate-800/60">
                               Pelatih: {reg.namaPelatih} ({reg.noWaPelatih})
                             </div>
                           </div>
                         </td>
 
-                        <td className="px-4 py-3">
+                        <td className="px-4 py-3.5">
                           <div className="flex items-center gap-1.5">
-                            <span className={`text-[10px] px-2 py-0.5 rounded font-mono font-bold ${
+                            <span className={`text-xs px-2 py-0.5 rounded font-mono font-bold ${
                               reg.statusPembayaran === 'Lunas' ? 'bg-emerald-950 text-emerald-400' : 'bg-amber-950 text-amber-400'
                             }`}>
                               {reg.statusPembayaran}
                             </span>
-                            <span className="font-mono text-white">
+                            <span className="font-mono text-white text-xs font-semibold">
                               Rp {reg.nominalBayar.toLocaleString('id-ID')}
                             </span>
                           </div>
                           {reg.sisaPembayaran > 0 && (
-                            <div className="text-[10px] text-red-400 mt-0.5">
+                            <div className="text-xs text-red-400 mt-0.5 font-medium">
                               Sisa: Rp {reg.sisaPembayaran.toLocaleString('id-ID')}
                             </div>
                           )}
                         </td>
 
-                        <td className="px-4 py-3">
-                          <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded text-[11px] font-semibold ${
+                        <td className="px-4 py-3.5">
+                          <span className={`inline-flex items-center gap-1 px-2.5 py-1 rounded text-xs font-semibold ${
                             reg.status === 'Terverifikasi'
                               ? 'bg-emerald-950/80 text-emerald-400 border border-emerald-800'
                               : reg.status === 'Perlu Perbaikan'
@@ -1244,20 +1244,20 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
               {/* Team General info */}
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-xl bg-slate-950 border border-slate-800">
                 <div>
-                  <div className="text-slate-500 font-mono text-[10px]">NO REGISTRASI</div>
-                  <div className="font-mono font-bold text-amber-400">{selectedReg.noRegistrasi}</div>
+                  <div className="text-slate-400 font-mono text-xs uppercase font-semibold">NO REGISTRASI</div>
+                  <div className="font-mono font-bold text-amber-400 text-sm mt-0.5">{selectedReg.noRegistrasi}</div>
                 </div>
                 <div>
-                  <div className="text-slate-500 font-mono text-[10px]">JENJANG</div>
-                  <div className="font-bold text-white">{selectedReg.jenjang}</div>
+                  <div className="text-slate-400 font-mono text-xs uppercase font-semibold">JENJANG</div>
+                  <div className="font-bold text-white text-sm mt-0.5">{selectedReg.jenjang}</div>
                 </div>
                 <div>
-                  <div className="text-slate-500 font-mono text-[10px]">PELETON</div>
-                  <div className="font-bold text-white">{selectedReg.namaPeleton}</div>
+                  <div className="text-slate-400 font-mono text-xs uppercase font-semibold">PELETON</div>
+                  <div className="font-bold text-white text-sm mt-0.5">{selectedReg.namaPeleton}</div>
                 </div>
                 <div>
-                  <div className="text-slate-500 font-mono text-[10px]">KOTA ASAL</div>
-                  <div className="font-bold text-white">{selectedReg.kotaAsal}</div>
+                  <div className="text-slate-400 font-mono text-xs uppercase font-semibold">KOTA ASAL</div>
+                  <div className="font-bold text-white text-sm mt-0.5">{selectedReg.kotaAsal}</div>
                 </div>
               </div>
 
@@ -1268,7 +1268,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     <CreditCard className="w-4 h-4 text-emerald-400" />
                     <span>Verifikasi Berkas Bukti Transfer Pembayaran:</span>
                   </h4>
-                  <span className="text-[11px] text-slate-400 font-mono bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-800">
+                  <span className="text-xs text-slate-300 font-mono bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-800">
                     Verifikasi Dokumen: Bukti Transfer Pembayaran Saja
                   </span>
                 </div>
@@ -1284,22 +1284,22 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                       }`}>
                         Skema: {selectedReg.metodePembayaran} ({selectedReg.statusPembayaran})
                       </span>
-                      <span className="text-xs text-slate-400 truncate max-w-xs">
+                      <span className="text-xs text-slate-300 truncate max-w-xs">
                         {selectedReg.buktiBayarNama || 'Bukti_Transfer'}
                       </span>
                     </div>
 
                     <div className="flex items-center gap-3 font-mono text-xs">
                       <div>
-                        <span className="text-slate-400 text-[11px]">Nominal Ditransfer: </span>
+                        <span className="text-slate-400 text-xs">Nominal Ditransfer: </span>
                         <strong className="text-emerald-400 font-bold text-sm">
                           Rp {selectedReg.nominalBayar.toLocaleString('id-ID')}
                         </strong>
                       </div>
                       {selectedReg.sisaPembayaran > 0 && (
                         <div className="pl-3 border-l border-slate-800">
-                          <span className="text-slate-400 text-[11px]">Sisa DP: </span>
-                          <strong className="text-red-400 font-bold">
+                          <span className="text-slate-400 text-xs">Sisa DP: </span>
+                          <strong className="text-red-400 font-bold text-sm">
                             Rp {selectedReg.sisaPembayaran.toLocaleString('id-ID')}
                           </strong>
                         </div>
@@ -1406,7 +1406,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                       <span className="text-slate-400 font-medium">Rekening Tujuan Panitia:</span>
                       <strong className="text-white font-mono">{bankConfig.bankName} - {bankConfig.nomorRekening}</strong>
                     </div>
-                    <div className="text-[11px] text-amber-400 font-mono">
+                    <div className="text-xs text-amber-400 font-mono font-semibold">
                       a.n {bankConfig.atasNama}
                     </div>
                   </div>
@@ -1420,13 +1420,13 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     <Users className="w-4 h-4 text-amber-400" />
                     <span>Daftar Anggota Peleton ({selectedReg.anggota.length} Siswa):</span>
                   </h4>
-                  <span className="text-[11px] font-mono text-amber-400">
+                  <span className="text-xs font-mono text-amber-400 font-semibold">
                     Danton: {selectedReg.anggota.find(a => a.peran === 'Danton')?.nama || 'Belum Ada'}
                   </span>
                 </div>
                 <div className="max-h-40 overflow-y-auto border border-slate-800 rounded-xl">
                   <table className="w-full text-left text-xs">
-                    <thead className="bg-slate-950 text-slate-400 font-mono text-[10px] border-b border-slate-800">
+                    <thead className="bg-slate-950 text-slate-300 font-mono text-xs border-b border-slate-800">
                       <tr>
                         <th className="px-3 py-2">No</th>
                         <th className="px-3 py-2">Nama</th>
@@ -1585,34 +1585,34 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
               <div className="p-4 rounded-2xl bg-slate-950 border border-slate-800 space-y-2.5">
                 <div className="flex justify-between items-start">
                   <div>
-                    <div className="text-[10px] font-mono text-slate-400">PANGKALAN SEKOLAH</div>
-                    <div className="text-sm font-bold text-white">{verifiedPromptReg.namaSekolah}</div>
-                    <div className="text-slate-400 text-[11px]">{verifiedPromptReg.namaPeleton} ({verifiedPromptReg.jenjang})</div>
+                    <div className="text-xs font-mono text-slate-400 uppercase font-semibold">PANGKALAN SEKOLAH</div>
+                    <div className="text-base font-bold text-white mt-0.5">{verifiedPromptReg.namaSekolah}</div>
+                    <div className="text-slate-300 text-xs mt-0.5">{verifiedPromptReg.namaPeleton} ({verifiedPromptReg.jenjang})</div>
                   </div>
-                  <span className="px-2.5 py-1 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800 font-mono text-[10px] font-bold">
+                  <span className="px-3 py-1 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800 font-mono text-xs font-bold">
                     SAH / TERVERIFIKASI
                   </span>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-800 text-[11px]">
+                <div className="grid grid-cols-2 gap-2 pt-2 border-t border-slate-800 text-xs">
                   <div>
-                    <span className="text-slate-500">No. Registrasi:</span>
-                    <div className="font-mono font-bold text-amber-400">{verifiedPromptReg.noRegistrasi}</div>
+                    <span className="text-slate-400">No. Registrasi:</span>
+                    <div className="font-mono font-bold text-amber-400 text-sm">{verifiedPromptReg.noRegistrasi}</div>
                   </div>
                   <div>
-                    <span className="text-slate-500">Pembina:</span>
+                    <span className="text-slate-400">Pembina:</span>
                     <div className="text-white font-medium">{verifiedPromptReg.namaPembina}</div>
-                    <div className="font-mono text-emerald-400 text-[11px] font-bold">{verifiedPromptReg.noWaPembina}</div>
+                    <div className="font-mono text-emerald-400 text-xs font-bold">{verifiedPromptReg.noWaPembina}</div>
                   </div>
                 </div>
               </div>
 
-              <div className="p-3.5 bg-emerald-950/40 border border-emerald-800/40 rounded-xl space-y-1.5 text-slate-300 text-[11px]">
+              <div className="p-3.5 bg-emerald-950/40 border border-emerald-800/40 rounded-xl space-y-1.5 text-slate-200 text-xs">
                 <div className="font-semibold text-emerald-300 flex items-center gap-1.5">
                   <MessageCircle className="w-4 h-4 text-emerald-400" />
                   <span>Pesan Otomatis WhatsApp Siap Dikirim:</span>
                 </div>
-                <p className="text-slate-400 text-[11px] leading-relaxed">
+                <p className="text-slate-300 text-xs leading-relaxed">
                   Pemberitahuan bahwa status verifikasi telah dinyatakan <strong>Terverifikasi / Sah</strong> beserta nomor registrasi (<strong>{verifiedPromptReg.noRegistrasi}</strong>) dan arahan untuk mengecek serta mengunduh <strong>E-Ticket</strong> di aplikasi LKBB telah siap.
                 </p>
               </div>
