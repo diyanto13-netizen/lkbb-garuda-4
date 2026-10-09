@@ -65,11 +65,11 @@ function initDatabase() {
       'Nama Sekolah', 'NPSN', 'Nama Peleton', 'Kota Asal', 'Alamat', 
       'Nama Pembina', 'No WA Pembina', 'Nama Pelatih', 'No WA Pelatih', 'Email Resmi',
       'Metode Bayar', 'Nominal Bayar', 'Nominal Harus Bayar', 'Status Bayar', 'Sisa Bayar',
-      'Link Bukti Bayar', 'Link Surat Tugas', 'Status Registrasi', 'Catatan Revisi',
+      'Link Bukti Bayar', 'Status Registrasi', 'Catatan Revisi',
       'Tanggal Pendaftaran', 'Tanggal Verifikasi'
     ]);
-    sReg.getRange('A1:Z1').setFontWeight('bold').setBackground('#0f172a').setFontColor('#ffffff');
-    sReg.autoResizeColumns(1, 26);
+    sReg.getRange('A1:Y1').setFontWeight('bold').setBackground('#0f172a').setFontColor('#ffffff');
+    sReg.autoResizeColumns(1, 25);
   }
 
   // 3. Sheet Tbl_Anggota_Peleton
@@ -255,14 +255,10 @@ function saveNewRegistration(payload) {
     var regId = 'REG-LKBB4-' + new Date().getFullYear() + '-' + sequence;
     var nowStr = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), 'yyyy-MM-dd HH:mm:ss');
 
-    // Upload berkas ke Google Drive
+    // Upload berkas Bukti Bayar ke Google Drive
     var buktiUrl = "";
     if (payload.buktiBayarBase64) {
       buktiUrl = saveBase64ToDrive(payload.buktiBayarBase64, payload.buktiBayarNama, 'BUKTI_' + sequence);
-    }
-    var suratUrl = "";
-    if (payload.suratTugasBase64) {
-      suratUrl = saveBase64ToDrive(payload.suratTugasBase64, payload.suratTugasNama, 'TUGAS_' + sequence);
     }
 
     var biayaMaks = matchedQuota ? matchedQuota.biayaPendaftaran : 500000;
@@ -293,7 +289,6 @@ function saveNewRegistration(payload) {
       statusBayar,
       sisaBayar,
       buktiUrl,
-      suratUrl,
       'Menunggu Verifikasi',
       '',
       nowStr,
@@ -483,11 +478,10 @@ function getAdminDashboardData(token) {
       statusBayar: r[18],
       sisaBayar: Number(r[19]),
       buktiBayarUrl: r[20],
-      suratTugasUrl: r[21],
-      status: r[22],
-      catatanRevisi: r[23],
-      tanggalDaftar: r[24],
-      tanggalVerifikasi: r[25],
+      status: (r[21] === 'Menunggu Verifikasi' || r[21] === 'Terverifikasi' || r[21] === 'Revisi' || r[21] === 'Ditolak') ? r[21] : (r[22] || 'Menunggu Verifikasi'),
+      catatanRevisi: (r[21] === 'Menunggu Verifikasi' || r[21] === 'Terverifikasi' || r[21] === 'Revisi' || r[21] === 'Ditolak') ? r[22] : (r[23] || ''),
+      tanggalDaftar: (r[21] === 'Menunggu Verifikasi' || r[21] === 'Terverifikasi' || r[21] === 'Revisi' || r[21] === 'Ditolak') ? r[23] : (r[24] || ''),
+      tanggalVerifikasi: (r[21] === 'Menunggu Verifikasi' || r[21] === 'Terverifikasi' || r[21] === 'Revisi' || r[21] === 'Ditolak') ? r[24] : (r[25] || ''),
       anggota: anggotaMap[r[0]] || []
     };
 

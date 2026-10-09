@@ -267,8 +267,6 @@ export const RegistrationWizard: React.FC<RegistrationWizardProps> = ({
       sisaPembayaran: sisaBayar,
       buktiBayarUrl: buktiBayarFile?.url || '',
       buktiBayarNama: buktiBayarFile?.name || 'bukti_transfer.jpg',
-      suratTugasUrl: '',
-      suratTugasNama: '',
       status: 'Menunggu Verifikasi',
       tanggalDaftar: new Date().toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })
     };
