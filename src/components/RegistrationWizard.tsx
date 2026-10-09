@@ -58,11 +58,10 @@ export const RegistrationWizard: React.FC<RegistrationWizardProps> = ({
   });
   const [memberError, setMemberError] = useState('');
 
-  // Step 4: Pembayaran & Berkas
+  // Step 4: Pembayaran & Bukti Transfer
   const [metodePembayaran, setMetodePembayaran] = useState<MetodePembayaran>('LUNAS');
   const [nominalCustomDP, setNominalCustomDP] = useState<number>(100000);
   const [buktiBayarFile, setBuktiBayarFile] = useState<{ url: string; name: string } | null>(null);
-  const [suratTugasFile, setSuratTugasFile] = useState<{ url: string; name: string } | null>(null);
   const [paktaIntegritas, setPaktaIntegritas] = useState(false);
 
   const [formErrors, setFormErrors] = useState<string[]>([]);
@@ -113,11 +112,10 @@ export const RegistrationWizard: React.FC<RegistrationWizardProps> = ({
     return errors.length === 0;
   };
 
-  // Step 4 Validation
+  // Step 4 Validation: Hanya Bukti Transfer Pembayaran & Pakta Integritas
   const validateStep4 = () => {
     const errors: string[] = [];
     if (!buktiBayarFile) errors.push('Bukti transfer pembayaran (Lunas/DP) wajib diunggah');
-    if (!suratTugasFile) errors.push('Surat tugas resmi dari Kepala Sekolah wajib diunggah');
     if (!paktaIntegritas) errors.push('Anda wajib menyetujui Pakta Integritas & Keaslian Data');
     setFormErrors(errors);
     return errors.length === 0;
@@ -183,8 +181,8 @@ export const RegistrationWizard: React.FC<RegistrationWizardProps> = ({
     setAnggotaList(anggotaList.filter(a => a.peran !== 'Danton'));
   };
 
-  // File Upload Handlers (converts to base64 DataURL for offline/reliable preview & GAS upload)
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, type: 'bukti' | 'surat') => {
+  // File Upload Handlers (converts to base64 DataURL for reliable preview & storage)
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -196,11 +194,7 @@ export const RegistrationWizard: React.FC<RegistrationWizardProps> = ({
     const reader = new FileReader();
     reader.onloadend = () => {
       const result = reader.result as string;
-      if (type === 'bukti') {
-        setBuktiBayarFile({ url: result, name: file.name });
-      } else {
-        setSuratTugasFile({ url: result, name: file.name });
-      }
+      setBuktiBayarFile({ url: result, name: file.name });
     };
     reader.readAsDataURL(file);
   };
@@ -273,8 +267,8 @@ export const RegistrationWizard: React.FC<RegistrationWizardProps> = ({
       sisaPembayaran: sisaBayar,
       buktiBayarUrl: buktiBayarFile?.url || '',
       buktiBayarNama: buktiBayarFile?.name || 'bukti_transfer.jpg',
-      suratTugasUrl: suratTugasFile?.url || '',
-      suratTugasNama: suratTugasFile?.name || 'surat_tugas.pdf',
+      suratTugasUrl: '',
+      suratTugasNama: '',
       status: 'Menunggu Verifikasi',
       tanggalDaftar: new Date().toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' })
     };
@@ -307,7 +301,7 @@ export const RegistrationWizard: React.FC<RegistrationWizardProps> = ({
           { num: 1, label: 'Pangkalan', icon: Building },
           { num: 2, label: 'Kontak', icon: Phone },
           { num: 3, label: 'Danton', icon: UserCheck },
-          { num: 4, label: 'Berkas & Bayar', icon: CreditCard }
+          { num: 4, label: 'Bukti Bayar', icon: CreditCard }
         ].map((s) => {
           const Icon = s.icon;
           const isActive = currentStep === s.num;
@@ -684,16 +678,16 @@ export const RegistrationWizard: React.FC<RegistrationWizardProps> = ({
           </div>
         )}
 
-        {/* STEP 4: PEMBAYARAN & BERKAS */}
+        {/* STEP 4: PEMBAYARAN & BUKTI TRANSFER */}
         {currentStep === 4 && (
           <div className="space-y-6">
             <div className="border-b border-slate-800 pb-4">
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
                 <CreditCard className="w-5 h-5 text-amber-400" />
-                <span>Metode Pembayaran & Unggah Dokumen Persyaratan</span>
+                <span>Metode Pembayaran & Unggah Bukti Transfer</span>
               </h3>
               <p className="text-xs text-slate-400 mt-1">
-                Lakukan transfer ke rekening panitia dan lampirkan bukti pembayaran serta surat tugas resmi.
+                Lakukan transfer ke rekening panitia dan lampirkan bukti transfer pembayaran (Lunas/DP).
               </p>
             </div>
 
@@ -783,64 +777,39 @@ export const RegistrationWizard: React.FC<RegistrationWizardProps> = ({
               </div>
             </div>
 
-            {/* File Uploads: Bukti Transfer & Surat Tugas */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {/* Bukti Bayar */}
-              <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-white">1. Bukti Pembayaran <span className="text-red-400">*</span></span>
-                  <span className="text-[10px] text-slate-400">JPG/PNG/PDF (Maks 5MB)</span>
+            {/* File Upload: Hanya Bukti Transfer Pembayaran */}
+            <div className="p-5 rounded-2xl bg-[#0b1329] border border-[#1e2d4d] space-y-3">
+              <div className="flex flex-wrap justify-between items-center gap-2">
+                <div className="flex items-center gap-2 font-bold text-white text-xs sm:text-sm">
+                  <CreditCard className="w-4 h-4 text-emerald-400" />
+                  <span>Unggah Bukti Transfer Pembayaran <span className="text-red-400">*</span></span>
                 </div>
-                <div className="border border-dashed border-slate-700 hover:border-amber-500/60 rounded-xl p-4 text-center cursor-pointer relative bg-slate-900/50">
-                  <input
-                    type="file"
-                    accept=".jpg,.jpeg,.png,.pdf"
-                    onChange={(e) => handleFileChange(e, 'bukti')}
-                    className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
-                  />
-                  {buktiBayarFile ? (
-                    <div className="space-y-1">
-                      <CheckCircle2 className="w-6 h-6 text-emerald-400 mx-auto" />
-                      <div className="text-xs font-bold text-white truncate">{buktiBayarFile.name}</div>
-                      <div className="text-[10px] text-emerald-400 font-semibold">Berkas siap dikirim</div>
-                    </div>
-                  ) : (
-                    <div className="space-y-1">
-                      <Upload className="w-6 h-6 text-slate-400 mx-auto" />
-                      <div className="text-xs text-slate-300 font-semibold">Klik atau seret file ke sini</div>
-                      <div className="text-[10px] text-slate-500">Struk transfer atau bukti mutasi m-banking</div>
-                    </div>
-                  )}
-                </div>
+                <span className="text-[11px] text-slate-400 font-mono">JPG, PNG, atau PDF (Maks 5 MB)</span>
               </div>
-
-              {/* Surat Tugas */}
-              <div className="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-white">2. Surat Tugas Resmi <span className="text-red-400">*</span></span>
-                  <span className="text-[10px] text-slate-400">JPG/PNG/PDF (Maks 5MB)</span>
-                </div>
-                <div className="border border-dashed border-slate-700 hover:border-amber-500/60 rounded-xl p-4 text-center cursor-pointer relative bg-slate-900/50">
-                  <input
-                    type="file"
-                    accept=".jpg,.jpeg,.png,.pdf"
-                    onChange={(e) => handleFileChange(e, 'surat')}
-                    className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
-                  />
-                  {suratTugasFile ? (
-                    <div className="space-y-1">
-                      <CheckCircle2 className="w-6 h-6 text-emerald-400 mx-auto" />
-                      <div className="text-xs font-bold text-white truncate">{suratTugasFile.name}</div>
-                      <div className="text-[10px] text-emerald-400 font-semibold">Berkas siap dikirim</div>
+              
+              <div className="border-2 border-dashed border-[#1e2d4d] hover:border-amber-400/70 rounded-2xl p-6 text-center cursor-pointer relative bg-[#101b35]/60 transition-all group">
+                <input
+                  type="file"
+                  accept=".jpg,.jpeg,.png,.pdf"
+                  onChange={handleFileChange}
+                  className="absolute inset-0 opacity-0 cursor-pointer w-full h-full z-10"
+                />
+                {buktiBayarFile ? (
+                  <div className="space-y-1.5 py-2">
+                    <CheckCircle2 className="w-8 h-8 text-emerald-400 mx-auto" />
+                    <div className="text-sm font-bold text-white truncate max-w-md mx-auto">{buktiBayarFile.name}</div>
+                    <div className="text-xs text-emerald-400 font-semibold">Berkas bukti transfer siap dikirim</div>
+                    <div className="text-[11px] text-slate-400">Klik untuk mengganti berkas</div>
+                  </div>
+                ) : (
+                  <div className="space-y-2 py-3">
+                    <div className="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto group-hover:scale-110 transition-transform">
+                      <Upload className="w-6 h-6" />
                     </div>
-                  ) : (
-                    <div className="space-y-1">
-                      <FileText className="w-6 h-6 text-slate-400 mx-auto" />
-                      <div className="text-xs text-slate-300 font-semibold">Klik atau seret file ke sini</div>
-                      <div className="text-[10px] text-slate-500">Surat tugas bertanda tangan & stempel sekolah</div>
-                    </div>
-                  )}
-                </div>
+                    <div className="text-sm text-slate-200 font-bold">Pilih atau seret berkas bukti transfer ke sini</div>
+                    <div className="text-xs text-slate-400">Struk transfer ATM, screenshot m-Banking, atau bukti setor tunai bank</div>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -854,7 +823,7 @@ export const RegistrationWizard: React.FC<RegistrationWizardProps> = ({
                   className="mt-0.5 w-4 h-4 rounded border-slate-700 text-amber-500 focus:ring-amber-500 bg-slate-900"
                 />
                 <span className="text-xs text-slate-300 leading-relaxed select-none">
-                  <b>Pakta Integritas & Pernyataan Keabsahan Data:</b> Saya menyatakan dengan sesungguhnya bahwa seluruh data pangkalan, kontak pembina/pelatih, serta berkas peserta yang diunggah adalah sah, asli, dan memenuhi juklak/juknis resmi LKBB GARUDA IV - SMKS PGRI 1 Kota Sukabumi.
+                  <b>Pakta Integritas & Pernyataan Keabsahan Data:</b> Saya menyatakan dengan sesungguhnya bahwa seluruh data pangkalan, kontak pembina/pelatih, serta bukti transfer pembayaran yang diunggah adalah sah, asli, dan memenuhi juklak/juknis resmi LKBB GARUDA IV - SMKS PGRI 1 Kota Sukabumi.
                 </span>
               </label>
             </div>

@@ -51,7 +51,7 @@ import {
   isPdfDocument, 
   openDocumentInNewTab, 
   downloadDocumentFile, 
-  DEFAULT_SURAT_TUGAS_PREVIEW 
+  DEFAULT_BUKTI_BAYAR_PREVIEW 
 } from '../utils/documentViewer';
 
 interface AdminPanelProps {
@@ -1261,201 +1261,154 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                 </div>
               </div>
 
-              {/* Uploaded Documents Review */}
+              {/* Uploaded Documents Review: Hanya Verifikasi Bukti Transfer Pembayaran */}
               <div>
-                <h4 className="font-bold text-white mb-2 flex items-center gap-1.5">
-                  <FileText className="w-4 h-4 text-amber-400" />
-                  <span>Berkas yang Diunggah Pendaftar:</span>
-                </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {/* Bukti Bayar */}
-                  <div className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3">
-                    <div className="flex justify-between items-center">
-                      <div className="flex items-center gap-1.5 font-bold text-white">
-                        <CreditCard className="w-4 h-4 text-emerald-400" />
-                        <span>1. Bukti Pembayaran</span>
-                      </div>
-                      <span className="font-mono text-emerald-400 font-bold bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800/80 text-[11px]">
-                        Rp {selectedReg.nominalBayar.toLocaleString('id-ID')}
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-2.5">
+                  <h4 className="font-bold text-white flex items-center gap-2 text-sm">
+                    <CreditCard className="w-4 h-4 text-emerald-400" />
+                    <span>Verifikasi Berkas Bukti Transfer Pembayaran:</span>
+                  </h4>
+                  <span className="text-[11px] text-slate-400 font-mono bg-slate-950 px-2.5 py-1 rounded-lg border border-slate-800">
+                    Verifikasi Dokumen: Bukti Transfer Pembayaran Saja
+                  </span>
+                </div>
+
+                <div className="p-4 sm:p-5 bg-slate-950 border border-slate-800 rounded-2xl space-y-4">
+                  {/* Header Ringkasan Pembayaran */}
+                  <div className="flex flex-wrap justify-between items-center gap-3 pb-3 border-b border-slate-800/80">
+                    <div className="flex items-center gap-2">
+                      <span className={`text-xs px-2.5 py-1 rounded-md font-mono font-bold uppercase tracking-wider ${
+                        selectedReg.statusPembayaran === 'Lunas' 
+                          ? 'bg-emerald-950 text-emerald-400 border border-emerald-800/60' 
+                          : 'bg-amber-950 text-amber-400 border border-amber-800/60'
+                      }`}>
+                        Skema: {selectedReg.metodePembayaran} ({selectedReg.statusPembayaran})
+                      </span>
+                      <span className="text-xs text-slate-400 truncate max-w-xs">
+                        {selectedReg.buktiBayarNama || 'Bukti_Transfer'}
                       </span>
                     </div>
 
-                    {selectedReg.buktiBayarUrl ? (
-                      <div className="space-y-2">
-                        {isPdfDocument(selectedReg.buktiBayarUrl, selectedReg.buktiBayarNama) ? (
-                          /* PDF Card */
-                          <div 
-                            onClick={() => setPreviewLightbox({
-                              title: 'Bukti Pembayaran (PDF)',
-                              url: selectedReg.buktiBayarUrl,
-                              fileName: selectedReg.buktiBayarNama || 'Bukti_Transfer.pdf',
-                              isPdf: true
-                            })}
-                            className="h-36 rounded-xl border border-slate-700 bg-slate-900/90 hover:border-amber-500/60 p-4 flex flex-col items-center justify-center text-center cursor-pointer transition-all group"
-                          >
-                            <div className="w-12 h-12 rounded-xl bg-red-500/20 border border-red-500/30 flex items-center justify-center text-red-400 group-hover:scale-110 transition-transform">
-                              <FileText className="w-6 h-6" />
-                            </div>
-                            <span className="text-xs font-bold text-white mt-2 line-clamp-1">
-                              {selectedReg.buktiBayarNama || 'Bukti_Pembayaran.pdf'}
-                            </span>
-                            <span className="text-[10px] text-amber-400 font-mono mt-0.5">
-                              Dokumen PDF · Klik untuk Meninjau
-                            </span>
-                          </div>
-                        ) : (
-                          /* Image Preview with Zoom overlay */
-                          <div 
-                            onClick={() => setPreviewLightbox({
-                              title: 'Bukti Pembayaran',
-                              url: selectedReg.buktiBayarUrl,
-                              fileName: selectedReg.buktiBayarNama || 'Bukti_Transfer.jpg',
-                              isPdf: false
-                            })}
-                            className="relative h-36 rounded-xl border border-slate-700 bg-slate-900 overflow-hidden cursor-pointer group flex items-center justify-center"
-                          >
-                            <img
-                              src={selectedReg.buktiBayarUrl}
-                              alt="Bukti Transfer"
-                              className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-200"
-                              onError={(e) => {
-                                e.currentTarget.src = 'https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&auto=format&fit=crop&q=80';
-                              }}
-                            />
-                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1.5 text-white font-bold text-[11px] backdrop-blur-[2px]">
-                              <ZoomIn className="w-4 h-4 text-amber-400" />
-                              <span>Perbesar Gambar</span>
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Action Buttons */}
-                        <div className="flex items-center gap-2 pt-1">
-                          <button
-                            type="button"
-                            onClick={() => setPreviewLightbox({
-                              title: 'Bukti Pembayaran',
-                              url: selectedReg.buktiBayarUrl,
-                              fileName: selectedReg.buktiBayarNama || 'Bukti_Transfer.jpg',
-                              isPdf: isPdfDocument(selectedReg.buktiBayarUrl, selectedReg.buktiBayarNama)
-                            })}
-                            className="flex-1 py-1.5 px-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 hover:text-white font-bold text-[11px] flex items-center justify-center gap-1.5 transition-colors border border-slate-700"
-                          >
-                            <Maximize2 className="w-3.5 h-3.5" />
-                            <span>Buka Ukuran Penuh</span>
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => openDocumentInNewTab(selectedReg.buktiBayarUrl, selectedReg.buktiBayarNama || 'Bukti_Transfer')}
-                            className="py-1.5 px-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white text-[11px] font-semibold flex items-center gap-1 transition-colors border border-slate-800"
-                            title="Buka dokumen di tab baru browser secara aman"
-                          >
-                            <ExternalLink className="w-3.5 h-3.5" />
-                            <span>Tab Baru</span>
-                          </button>
+                    <div className="flex items-center gap-3 font-mono text-xs">
+                      <div>
+                        <span className="text-slate-400 text-[11px]">Nominal Ditransfer: </span>
+                        <strong className="text-emerald-400 font-bold text-sm">
+                          Rp {selectedReg.nominalBayar.toLocaleString('id-ID')}
+                        </strong>
+                      </div>
+                      {selectedReg.sisaPembayaran > 0 && (
+                        <div className="pl-3 border-l border-slate-800">
+                          <span className="text-slate-400 text-[11px]">Sisa DP: </span>
+                          <strong className="text-red-400 font-bold">
+                            Rp {selectedReg.sisaPembayaran.toLocaleString('id-ID')}
+                          </strong>
                         </div>
-                      </div>
-                    ) : (
-                      <div className="h-36 rounded-xl border border-dashed border-slate-800 bg-slate-900/40 flex flex-col items-center justify-center text-slate-500 text-xs">
-                        <FileText className="w-6 h-6 mb-1 opacity-50" />
-                        <span>Tidak ada berkas bukti pembayaran</span>
-                      </div>
-                    )}
+                      )}
+                    </div>
                   </div>
 
-                  {/* Surat Tugas */}
-                  <div className="p-4 bg-slate-950 border border-slate-800 rounded-2xl space-y-3">
-                    <div className="flex justify-between items-center">
-                      <div className="flex items-center gap-1.5 font-bold text-white">
-                        <FileText className="w-4 h-4 text-amber-400" />
-                        <span>2. Surat Tugas Resmi</span>
-                      </div>
-                      <span className="text-slate-400 font-mono text-[10px] bg-slate-900 px-2 py-0.5 rounded border border-slate-800">
-                        Kepala Sekolah
-                      </span>
-                    </div>
-
-                    {selectedReg.suratTugasUrl ? (
-                      <div className="space-y-2">
-                        {isPdfDocument(selectedReg.suratTugasUrl, selectedReg.suratTugasNama) ? (
-                          /* PDF Card */
-                          <div 
-                            onClick={() => setPreviewLightbox({
-                              title: 'Surat Tugas Resmi Kepala Sekolah (PDF)',
-                              url: selectedReg.suratTugasUrl,
-                              fileName: selectedReg.suratTugasNama || 'Surat_Tugas_Kepsek.pdf',
-                              isPdf: true
-                            })}
-                            className="h-36 rounded-xl border border-slate-700 bg-slate-900/90 hover:border-amber-500/60 p-4 flex flex-col items-center justify-center text-center cursor-pointer transition-all group"
-                          >
-                            <div className="w-12 h-12 rounded-xl bg-red-500/20 border border-red-500/30 flex items-center justify-center text-red-400 group-hover:scale-110 transition-transform">
-                              <FileText className="w-6 h-6" />
-                            </div>
-                            <span className="text-xs font-bold text-white mt-2 line-clamp-1">
-                              {selectedReg.suratTugasNama || 'Surat_Tugas_Resmi.pdf'}
-                            </span>
-                            <span className="text-[10px] text-amber-400 font-mono mt-0.5">
-                              Dokumen PDF · Klik untuk Meninjau
-                            </span>
+                  {/* Preview Bukti Transfer */}
+                  {selectedReg.buktiBayarUrl ? (
+                    <div className="space-y-3">
+                      {isPdfDocument(selectedReg.buktiBayarUrl, selectedReg.buktiBayarNama) ? (
+                        /* PDF Card */
+                        <div 
+                          onClick={() => setPreviewLightbox({
+                            title: 'Bukti Transfer Pembayaran (PDF)',
+                            url: selectedReg.buktiBayarUrl,
+                            fileName: selectedReg.buktiBayarNama || 'Bukti_Transfer.pdf',
+                            isPdf: true
+                          })}
+                          className="h-48 sm:h-56 rounded-xl border border-slate-700 bg-slate-900/90 hover:border-emerald-500/60 p-6 flex flex-col items-center justify-center text-center cursor-pointer transition-all group shadow-inner"
+                        >
+                          <div className="w-16 h-16 rounded-2xl bg-red-500/15 border border-red-500/30 flex items-center justify-center text-red-400 group-hover:scale-110 transition-transform">
+                            <FileText className="w-8 h-8" />
                           </div>
-                        ) : (
-                          /* Image Preview with Zoom overlay and robust fallback */
-                          <div 
-                            onClick={() => setPreviewLightbox({
-                              title: 'Surat Tugas Resmi Kepala Sekolah',
-                              url: selectedReg.suratTugasUrl || DEFAULT_SURAT_TUGAS_PREVIEW,
-                              fileName: selectedReg.suratTugasNama || 'Surat_Tugas.jpg',
-                              isPdf: false
-                            })}
-                            className="relative h-36 rounded-xl border border-slate-700 bg-slate-900 overflow-hidden cursor-pointer group flex items-center justify-center"
-                          >
-                            <img
-                              src={selectedReg.suratTugasUrl}
-                              alt="Surat Tugas Resmi"
-                              className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-200"
-                              onError={(e) => {
-                                e.currentTarget.src = DEFAULT_SURAT_TUGAS_PREVIEW;
-                              }}
-                            />
-                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1.5 text-white font-bold text-[11px] backdrop-blur-[2px]">
-                              <ZoomIn className="w-4 h-4 text-amber-400" />
-                              <span>Perbesar Berkas</span>
-                            </div>
-                          </div>
-                        )}
-
-                        {/* Action Buttons */}
-                        <div className="flex items-center gap-2 pt-1">
-                          <button
-                            type="button"
-                            onClick={() => setPreviewLightbox({
-                              title: 'Surat Tugas Resmi Kepala Sekolah',
-                              url: selectedReg.suratTugasUrl || DEFAULT_SURAT_TUGAS_PREVIEW,
-                              fileName: selectedReg.suratTugasNama || 'Surat_Tugas_Resmi',
-                              isPdf: isPdfDocument(selectedReg.suratTugasUrl, selectedReg.suratTugasNama)
-                            })}
-                            className="flex-1 py-1.5 px-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 hover:text-white font-bold text-[11px] flex items-center justify-center gap-1.5 transition-colors border border-slate-700"
-                          >
-                            <Maximize2 className="w-3.5 h-3.5" />
-                            <span>Buka Berkas Ukuran Penuh</span>
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => openDocumentInNewTab(selectedReg.suratTugasUrl || DEFAULT_SURAT_TUGAS_PREVIEW, selectedReg.suratTugasNama || 'Surat_Tugas')}
-                            className="py-1.5 px-2.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white text-[11px] font-semibold flex items-center gap-1 transition-colors border border-slate-800"
-                            title="Buka berkas di tab baru browser secara aman"
-                          >
-                            <ExternalLink className="w-3.5 h-3.5" />
-                            <span>Tab Baru</span>
-                          </button>
+                          <span className="text-sm font-bold text-white mt-3 line-clamp-1">
+                            {selectedReg.buktiBayarNama || 'Bukti_Transfer_Pembayaran.pdf'}
+                          </span>
+                          <span className="text-xs text-emerald-400 font-mono mt-1">
+                            Dokumen PDF Resmi · Klik untuk Membaca Lengkap
+                          </span>
                         </div>
+                      ) : (
+                        /* Image Preview with Zoom overlay */
+                        <div 
+                          onClick={() => setPreviewLightbox({
+                            title: 'Bukti Transfer Pembayaran',
+                            url: selectedReg.buktiBayarUrl,
+                            fileName: selectedReg.buktiBayarNama || 'Bukti_Transfer.jpg',
+                            isPdf: false
+                          })}
+                          className="relative h-64 sm:h-80 rounded-xl border border-slate-700 bg-slate-900 overflow-hidden cursor-pointer group flex items-center justify-center"
+                        >
+                          <img
+                            src={selectedReg.buktiBayarUrl}
+                            alt="Bukti Transfer Pembayaran"
+                            className="w-full h-full object-contain group-hover:scale-[1.02] transition-transform duration-200"
+                            onError={(e) => {
+                              e.currentTarget.src = DEFAULT_BUKTI_BAYAR_PREVIEW;
+                            }}
+                          />
+                          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 text-white font-bold text-xs backdrop-blur-[2px]">
+                            <ZoomIn className="w-5 h-5 text-amber-400" />
+                            <span>Perbesar Tampilan Bukti Transfer</span>
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Action Buttons */}
+                      <div className="flex flex-wrap items-center gap-2 pt-1">
+                        <button
+                          type="button"
+                          onClick={() => setPreviewLightbox({
+                            title: 'Bukti Transfer Pembayaran',
+                            url: selectedReg.buktiBayarUrl,
+                            fileName: selectedReg.buktiBayarNama || 'Bukti_Transfer.jpg',
+                            isPdf: isPdfDocument(selectedReg.buktiBayarUrl, selectedReg.buktiBayarNama)
+                          })}
+                          className="flex-1 py-2 px-3 rounded-lg bg-emerald-950/80 hover:bg-emerald-900/90 text-emerald-300 hover:text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-colors border border-emerald-700/60"
+                        >
+                          <Maximize2 className="w-4 h-4" />
+                          <span>Buka Ukuran Penuh (Lightbox)</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => openDocumentInNewTab(selectedReg.buktiBayarUrl, selectedReg.buktiBayarNama || 'Bukti_Transfer')}
+                          className="py-2 px-3 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 transition-colors border border-slate-800"
+                          title="Buka dokumen di tab baru browser secara aman"
+                        >
+                          <ExternalLink className="w-4 h-4" />
+                          <span>Tab Baru</span>
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => downloadDocumentFile(selectedReg.buktiBayarUrl, selectedReg.buktiBayarNama || 'Bukti_Transfer')}
+                          className="py-2 px-3 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white text-xs font-semibold flex items-center gap-1.5 transition-colors border border-slate-800"
+                          title="Unduh file bukti transfer ke perangkat lokal"
+                        >
+                          <Download className="w-4 h-4" />
+                          <span>Unduh Berkas</span>
+                        </button>
                       </div>
-                    ) : (
-                      <div className="h-36 rounded-xl border border-dashed border-slate-800 bg-slate-900/40 flex flex-col items-center justify-center text-slate-500 text-xs">
-                        <FileText className="w-6 h-6 mb-1 opacity-50" />
-                        <span>Tidak ada berkas surat tugas</span>
-                      </div>
-                    )}
+                    </div>
+                  ) : (
+                    <div className="h-44 rounded-xl border border-dashed border-slate-800 bg-slate-900/40 flex flex-col items-center justify-center text-slate-500 text-xs">
+                      <CreditCard className="w-8 h-8 mb-2 opacity-40 text-slate-400" />
+                      <span className="font-bold text-slate-300">Tidak ada berkas bukti transfer pembayaran yang diunggah</span>
+                      <span className="text-[11px] text-slate-500 mt-0.5">Peserta belum melampirkan berkas transfer</span>
+                    </div>
+                  )}
+
+                  {/* Rekening Tujuan Panitia Helper */}
+                  <div className="p-3 bg-slate-900/70 border border-slate-800/80 rounded-xl text-xs flex flex-wrap items-center justify-between gap-2 text-slate-300">
+                    <div className="flex items-center gap-2">
+                      <span className="text-slate-400 font-medium">Rekening Tujuan Panitia:</span>
+                      <strong className="text-white font-mono">{bankConfig.bankName} - {bankConfig.nomorRekening}</strong>
+                    </div>
+                    <div className="text-[11px] text-amber-400 font-mono">
+                      a.n {bankConfig.atasNama}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1539,7 +1492,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                     rows={2}
                     value={catatanDraft}
                     onChange={(e) => setCatatanDraft(e.target.value)}
-                    placeholder="Contoh: Surat tugas belum bertanda tangan kepala sekolah..."
+                    placeholder="Contoh: Bukti transfer belum jelas atau nominal terpotong, silakan unggah ulang bukti transfer..."
                     className="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-white focus:outline-none focus:border-amber-500"
                   />
                 </div>
@@ -1827,7 +1780,7 @@ export const AdminPanel: React.FC<AdminPanelProps> = ({
                   alt={previewLightbox.title}
                   className="max-w-full max-h-[82vh] object-contain rounded-2xl shadow-2xl border border-slate-800 bg-slate-950/80"
                   onError={(e) => {
-                    e.currentTarget.src = DEFAULT_SURAT_TUGAS_PREVIEW;
+                    e.currentTarget.src = DEFAULT_BUKTI_BAYAR_PREVIEW;
                   }}
                 />
               </div>

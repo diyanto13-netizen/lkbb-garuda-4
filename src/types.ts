@@ -53,7 +53,7 @@ export interface Pendaftaran {
   sisaPembayaran: number;
   buktiBayarUrl: string;
   buktiBayarNama?: string;
-  suratTugasUrl: string;
+  suratTugasUrl?: string;
   suratTugasNama?: string;
   status: StatusPendaftaran;
   catatanRevisi?: string;

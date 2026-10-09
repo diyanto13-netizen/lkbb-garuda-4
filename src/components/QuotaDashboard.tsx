@@ -441,7 +441,7 @@ export const QuotaDashboard: React.FC<QuotaDashboardProps> = ({
               </li>
               <li className="flex items-start gap-2.5">
                 <span className="text-amber-400 font-bold text-base">•</span>
-                <span>Wajib mengunggah Surat Tugas resmi berkepala surat dan bermeterai/stempel basah.</span>
+                <span>Wajib mengunggah bukti transfer pembayaran yang valid (struk ATM / m-banking / teller).</span>
               </li>
               <li className="flex items-start gap-2.5">
                 <span className="text-amber-400 font-bold text-base">•</span>
